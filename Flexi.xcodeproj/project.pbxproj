@@ -1,0 +1,665 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		075EF2C62CFDAFC200D1D2DE /* Flexi Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 075EF2C52CFDAFC200D1D2DE /* Flexi Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		075EF2C72CFDAFC200D1D2DE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 075EF2B92CFDAFC200D1D2DE /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 075EF2C42CFDAFC200D1D2DE;
+			remoteInfo = "Flexi Watch App";
+		};
+		075EF2D82CFDAFC400D1D2DE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 075EF2B92CFDAFC200D1D2DE /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 075EF2C42CFDAFC200D1D2DE;
+			remoteInfo = "Flexi Watch App";
+		};
+		075EF2E22CFDAFC400D1D2DE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 075EF2B92CFDAFC200D1D2DE /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 075EF2C42CFDAFC200D1D2DE;
+			remoteInfo = "Flexi Watch App";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		075EF2EE2CFDAFC400D1D2DE /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				075EF2C62CFDAFC200D1D2DE /* Flexi Watch App.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		075EF2BF2CFDAFC200D1D2DE /* Flexi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Flexi.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		075EF2C52CFDAFC200D1D2DE /* Flexi Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Flexi Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		075EF2D72CFDAFC400D1D2DE /* Flexi Watch AppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Flexi Watch AppTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		075EF2E12CFDAFC400D1D2DE /* Flexi Watch AppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Flexi Watch AppUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		075EF2C92CFDAFC200D1D2DE /* Flexi Watch App */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "Flexi Watch App";
+			sourceTree = "<group>";
+		};
+		075EF2DA2CFDAFC400D1D2DE /* Flexi Watch AppTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "Flexi Watch AppTests";
+			sourceTree = "<group>";
+		};
+		075EF2E42CFDAFC400D1D2DE /* Flexi Watch AppUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "Flexi Watch AppUITests";
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		075EF2C22CFDAFC200D1D2DE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		075EF2D42CFDAFC400D1D2DE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		075EF2DE2CFDAFC400D1D2DE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		075EF2B82CFDAFC200D1D2DE = {
+			isa = PBXGroup;
+			children = (
+				075EF2C92CFDAFC200D1D2DE /* Flexi Watch App */,
+				075EF2DA2CFDAFC400D1D2DE /* Flexi Watch AppTests */,
+				075EF2E42CFDAFC400D1D2DE /* Flexi Watch AppUITests */,
+				075EF2C02CFDAFC200D1D2DE /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		075EF2C02CFDAFC200D1D2DE /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				075EF2BF2CFDAFC200D1D2DE /* Flexi.app */,
+				075EF2C52CFDAFC200D1D2DE /* Flexi Watch App.app */,
+				075EF2D72CFDAFC400D1D2DE /* Flexi Watch AppTests.xctest */,
+				075EF2E12CFDAFC400D1D2DE /* Flexi Watch AppUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		075EF2BE2CFDAFC200D1D2DE /* Flexi */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 075EF2EF2CFDAFC400D1D2DE /* Build configuration list for PBXNativeTarget "Flexi" */;
+			buildPhases = (
+				075EF2BD2CFDAFC200D1D2DE /* Resources */,
+				075EF2EE2CFDAFC400D1D2DE /* Embed Watch Content */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				075EF2C82CFDAFC200D1D2DE /* PBXTargetDependency */,
+			);
+			name = Flexi;
+			packageProductDependencies = (
+			);
+			productName = Flexi;
+			productReference = 075EF2BF2CFDAFC200D1D2DE /* Flexi.app */;
+			productType = "com.apple.product-type.application.watchapp2-container";
+		};
+		075EF2C42CFDAFC200D1D2DE /* Flexi Watch App */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 075EF2EB2CFDAFC400D1D2DE /* Build configuration list for PBXNativeTarget "Flexi Watch App" */;
+			buildPhases = (
+				075EF2C12CFDAFC200D1D2DE /* Sources */,
+				075EF2C22CFDAFC200D1D2DE /* Frameworks */,
+				075EF2C32CFDAFC200D1D2DE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				075EF2C92CFDAFC200D1D2DE /* Flexi Watch App */,
+			);
+			name = "Flexi Watch App";
+			packageProductDependencies = (
+			);
+			productName = "Flexi Watch App";
+			productReference = 075EF2C52CFDAFC200D1D2DE /* Flexi Watch App.app */;
+			productType = "com.apple.product-type.application";
+		};
+		075EF2D62CFDAFC400D1D2DE /* Flexi Watch AppTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 075EF2F22CFDAFC400D1D2DE /* Build configuration list for PBXNativeTarget "Flexi Watch AppTests" */;
+			buildPhases = (
+				075EF2D32CFDAFC400D1D2DE /* Sources */,
+				075EF2D42CFDAFC400D1D2DE /* Frameworks */,
+				075EF2D52CFDAFC400D1D2DE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				075EF2D92CFDAFC400D1D2DE /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				075EF2DA2CFDAFC400D1D2DE /* Flexi Watch AppTests */,
+			);
+			name = "Flexi Watch AppTests";
+			packageProductDependencies = (
+			);
+			productName = "Flexi Watch AppTests";
+			productReference = 075EF2D72CFDAFC400D1D2DE /* Flexi Watch AppTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		075EF2E02CFDAFC400D1D2DE /* Flexi Watch AppUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 075EF2F52CFDAFC400D1D2DE /* Build configuration list for PBXNativeTarget "Flexi Watch AppUITests" */;
+			buildPhases = (
+				075EF2DD2CFDAFC400D1D2DE /* Sources */,
+				075EF2DE2CFDAFC400D1D2DE /* Frameworks */,
+				075EF2DF2CFDAFC400D1D2DE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				075EF2E32CFDAFC400D1D2DE /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				075EF2E42CFDAFC400D1D2DE /* Flexi Watch AppUITests */,
+			);
+			name = "Flexi Watch AppUITests";
+			packageProductDependencies = (
+			);
+			productName = "Flexi Watch AppUITests";
+			productReference = 075EF2E12CFDAFC400D1D2DE /* Flexi Watch AppUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		075EF2B92CFDAFC200D1D2DE /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1610;
+				LastUpgradeCheck = 1610;
+				TargetAttributes = {
+					075EF2BE2CFDAFC200D1D2DE = {
+						CreatedOnToolsVersion = 16.1;
+					};
+					075EF2C42CFDAFC200D1D2DE = {
+						CreatedOnToolsVersion = 16.1;
+					};
+					075EF2D62CFDAFC400D1D2DE = {
+						CreatedOnToolsVersion = 16.1;
+						TestTargetID = 075EF2C42CFDAFC200D1D2DE;
+					};
+					075EF2E02CFDAFC400D1D2DE = {
+						CreatedOnToolsVersion = 16.1;
+						TestTargetID = 075EF2C42CFDAFC200D1D2DE;
+					};
+				};
+			};
+			buildConfigurationList = 075EF2BC2CFDAFC200D1D2DE /* Build configuration list for PBXProject "Flexi" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 075EF2B82CFDAFC200D1D2DE;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 075EF2C02CFDAFC200D1D2DE /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				075EF2BE2CFDAFC200D1D2DE /* Flexi */,
+				075EF2C42CFDAFC200D1D2DE /* Flexi Watch App */,
+				075EF2D62CFDAFC400D1D2DE /* Flexi Watch AppTests */,
+				075EF2E02CFDAFC400D1D2DE /* Flexi Watch AppUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		075EF2BD2CFDAFC200D1D2DE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		075EF2C32CFDAFC200D1D2DE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		075EF2D52CFDAFC400D1D2DE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		075EF2DF2CFDAFC400D1D2DE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		075EF2C12CFDAFC200D1D2DE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		075EF2D32CFDAFC400D1D2DE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		075EF2DD2CFDAFC400D1D2DE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		075EF2C82CFDAFC200D1D2DE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 075EF2C42CFDAFC200D1D2DE /* Flexi Watch App */;
+			targetProxy = 075EF2C72CFDAFC200D1D2DE /* PBXContainerItemProxy */;
+		};
+		075EF2D92CFDAFC400D1D2DE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 075EF2C42CFDAFC200D1D2DE /* Flexi Watch App */;
+			targetProxy = 075EF2D82CFDAFC400D1D2DE /* PBXContainerItemProxy */;
+		};
+		075EF2E32CFDAFC400D1D2DE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 075EF2C42CFDAFC200D1D2DE /* Flexi Watch App */;
+			targetProxy = 075EF2E22CFDAFC400D1D2DE /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		075EF2E92CFDAFC400D1D2DE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		075EF2EA2CFDAFC400D1D2DE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+			};
+			name = Release;
+		};
+		075EF2EC2CFDAFC400D1D2DE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Flexi Watch App/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Flexi;
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "Track your activity and fitness progress";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKWatchOnly = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = PrinceYadav.Flexi.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 11.1;
+			};
+			name = Debug;
+		};
+		075EF2ED2CFDAFC400D1D2DE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Flexi Watch App/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Flexi;
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "Track your activity and fitness progress";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKWatchOnly = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = PrinceYadav.Flexi.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				VALIDATE_PRODUCT = YES;
+				WATCHOS_DEPLOYMENT_TARGET = 11.1;
+			};
+			name = Release;
+		};
+		075EF2F02CFDAFC400D1D2DE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				INFOPLIST_KEY_CFBundleDisplayName = Flexi;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = PrinceYadav.Flexi;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		075EF2F12CFDAFC400D1D2DE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				INFOPLIST_KEY_CFBundleDisplayName = Flexi;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = PrinceYadav.Flexi;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		075EF2F32CFDAFC400D1D2DE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "PrinceYadav.Flexi-Watch-AppTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Flexi Watch App.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Flexi Watch App";
+				WATCHOS_DEPLOYMENT_TARGET = 11.1;
+			};
+			name = Debug;
+		};
+		075EF2F42CFDAFC400D1D2DE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "PrinceYadav.Flexi-Watch-AppTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Flexi Watch App.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Flexi Watch App";
+				VALIDATE_PRODUCT = YES;
+				WATCHOS_DEPLOYMENT_TARGET = 11.1;
+			};
+			name = Release;
+		};
+		075EF2F62CFDAFC400D1D2DE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "PrinceYadav.Flexi-Watch-AppUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				TEST_TARGET_NAME = "Flexi Watch App";
+				WATCHOS_DEPLOYMENT_TARGET = 11.1;
+			};
+			name = Debug;
+		};
+		075EF2F72CFDAFC400D1D2DE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "PrinceYadav.Flexi-Watch-AppUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				TEST_TARGET_NAME = "Flexi Watch App";
+				VALIDATE_PRODUCT = YES;
+				WATCHOS_DEPLOYMENT_TARGET = 11.1;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		075EF2BC2CFDAFC200D1D2DE /* Build configuration list for PBXProject "Flexi" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				075EF2E92CFDAFC400D1D2DE /* Debug */,
+				075EF2EA2CFDAFC400D1D2DE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		075EF2EB2CFDAFC400D1D2DE /* Build configuration list for PBXNativeTarget "Flexi Watch App" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				075EF2EC2CFDAFC400D1D2DE /* Debug */,
+				075EF2ED2CFDAFC400D1D2DE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		075EF2EF2CFDAFC400D1D2DE /* Build configuration list for PBXNativeTarget "Flexi" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				075EF2F02CFDAFC400D1D2DE /* Debug */,
+				075EF2F12CFDAFC400D1D2DE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		075EF2F22CFDAFC400D1D2DE /* Build configuration list for PBXNativeTarget "Flexi Watch AppTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				075EF2F32CFDAFC400D1D2DE /* Debug */,
+				075EF2F42CFDAFC400D1D2DE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		075EF2F52CFDAFC400D1D2DE /* Build configuration list for PBXNativeTarget "Flexi Watch AppUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				075EF2F62CFDAFC400D1D2DE /* Debug */,
+				075EF2F72CFDAFC400D1D2DE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 075EF2B92CFDAFC200D1D2DE /* Project object */;
+}
