@@ -48,36 +48,28 @@ struct PostureTrackingView: View {
                 ScrollView {
                     VStack(spacing: 20) {
                         // Header Section
-                        VStack(alignment: .leading, spacing: 10) {
-                            Text("Posture Tracking")
-                                .font(.largeTitle)
-                                .fontWeight(.bold)
-                                .foregroundColor(primaryTextColor)
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text("POSTURE")
+                                .font(DesignSystem.sectionHeader)
+                                .foregroundColor(.white.opacity(0.6))
                             
-                            Text("Monitor your posture health")
-                                .font(.subheadline)
-                                .foregroundColor(secondaryTextColor)
+                            Text("Continuous Tracking")
+                                .font(DesignSystem.primaryTitle)
+                                .foregroundColor(primaryTextColor)
                         }
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(.horizontal)
                         
-                        // Posture Score Card
                         PostureScoreCardView(score: postureAnalysis.currentPostureScore)
-                            .background(.thinMaterial)
-                            .cornerRadius(15)
+                            .glassyCard()
                             .padding(.horizontal)
                         
-                        // Posture Trend Chart
                         PostureTrendChartView(postureData: postureAnalysis.postureReadings)
-                            .background(.thinMaterial)
-                            .cornerRadius(15)
                             .padding(.horizontal)
                         
                         // Detailed Insights Section
                         if showDetailedAnalysis {
-                            PostureInsightsView()  // No arguments
-                                .background(.thinMaterial)
-                                .cornerRadius(15)
+                            PostureInsightsView()
                                 .padding(.horizontal)
                                 .transition(.asymmetric(insertion: .scale, removal: .opacity))
                         }
@@ -88,12 +80,17 @@ struct PostureTrackingView: View {
                                 showDetailedAnalysis.toggle()
                             }
                         }) {
-                            Text(showDetailedAnalysis ? "Hide Details" : "Show Detailed Analysis")
-                                .foregroundColor(primaryTextColor)
+                            Text(showDetailedAnalysis ? "Hide Details" : "Show Insights")
+                                .font(DesignSystem.bodyText)
+                                .fontWeight(.bold)
+                                .foregroundColor(.white)
+                                .frame(maxWidth: .infinity)
                                 .padding()
-                                .background(toggleButtonColor)
-                                .cornerRadius(10)
+                                .background(.white.opacity(0.1))
+                                .cornerRadius(15)
                         }
+                        .buttonStyle(PlainButtonStyle())
+                        .padding(.horizontal)
                         .padding(.bottom)
                     }
                 }

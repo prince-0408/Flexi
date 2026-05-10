@@ -72,33 +72,33 @@ struct HeaderView: View {
     }
     
     var body: some View {
-        HStack {
-            VStack(alignment: .leading, spacing: 6) {
-                HStack(spacing: 8) {
-                    // Time of Day Icon
-                    Image(systemName: timeOfDayIcon)
-                        .foregroundColor(textColors.primary)
-                        .font(.system(size: watchSize.iconSize))
-                    
-                    Text(greeting)
-                        .font(.system(size: watchSize.greetingFontSize, weight: .medium, design: .rounded))
-                        .foregroundColor(textColors.primary)
-                        .lineLimit(1)
-                }
+        HStack(spacing: 12) {
+            // Left: Greeting and Date
+            VStack(alignment: .leading, spacing: 2) {
+                Text(greeting.uppercased())
+                    .font(DesignSystem.captionText)
+                    .fontWeight(.bold)
+                    .foregroundColor(.secondary)
                 
-                Text(currentTime, style: .date)
-                    .font(.system(size: watchSize.dateFontSize))
-                    .foregroundColor(textColors.secondary)
+                Text("PRINCE")
+                    .font(DesignSystem.primaryTitle)
+                    .foregroundColor(textColors.primary)
             }
             
             Spacer()
             
-            // Health Icon
-            Image(systemName: "heart.fill")
-                .foregroundColor(Color.red)
-                .font(.system(size: watchSize.iconSize))
+            // Right: Time of Day Icon in a circular glass well
+            ZStack {
+                Circle()
+                    .fill(.white.opacity(0.1))
+                    .frame(width: 36, height: 36)
+                
+                Image(systemName: timeOfDayIcon)
+                    .foregroundColor(textColors.primary)
+                    .font(.system(size: 18, weight: .semibold))
+            }
         }
-        .padding(watchSize.padding)
+        .padding(12)
         .background(Color.clear)
     }
     

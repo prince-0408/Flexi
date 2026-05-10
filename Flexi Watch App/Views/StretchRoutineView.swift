@@ -12,6 +12,8 @@ struct StretchRoutineView: View {
     @State private var currentExerciseIndex = 0
     @State private var isExerciseInProgress = false
     @State private var remainingTime = 0
+    @State private var showExerciseList = false
+    @State private var routineExercises: [StretchExercise] = []
     @Environment(\.colorScheme) private var colorScheme
     @EnvironmentObject var healthManager: HealthManager
     
@@ -64,20 +66,16 @@ struct StretchRoutineView: View {
             // Background Gradient
             Color.clear
             
-            ScrollView {
-                VStack(spacing: 20) {
-                    // Routine Selector
+            ScrollView(.vertical, showsIndicators: false) {
+                VStack(spacing: 28) {
+                    // Routine Selector (3D Cover Flow)
                     RoutineSelectorView(
-                        selectedRoutine: $selectedRoutine,
-                        backgroundColor: .clear,
-                        textColor: colorTheme.primaryTextColor
+                        selectedRoutine: $selectedRoutine
                     )
-                    .background(.thinMaterial)
-                    .cornerRadius(20)
                     
-                    // Current Exercise Display
+                    // Immersive Active Session
                     CurrentExerciseView(
-                        routineType: mapToStretchRoutineType(selectedRoutine),
+                        exercises: routineExercises,
                         currentIndex: currentExerciseIndex,
                         isInProgress: isExerciseInProgress,
                         remainingTime: remainingTime,
@@ -87,39 +85,94 @@ struct StretchRoutineView: View {
                         accentColor: colorTheme.accentColor,
                         progressColor: colorTheme.progressColor
                     )
-                    .background(.thinMaterial)
-                    .cornerRadius(20)
                     
-                    // Control Buttons
-                    StretchControlButtonsView(
-                        isInProgress: $isExerciseInProgress,
-                        currentExerciseIndex: $currentExerciseIndex,
-                        routine: selectedRoutine,
-                        remainingTime: $remainingTime,
-                        backgroundColor: Color.clear,
-                        accentColor: colorTheme.accentColor,
-                        primaryTextColor: colorTheme.primaryTextColor
-                    )
-                    .background(.thinMaterial)
-                    .cornerRadius(20)
+                    // Control Orbs
+                    VStack(spacing: 12) {
+                        StretchControlButtonsView(
+                            isInProgress: $isExerciseInProgress,
+                            currentExerciseIndex: $currentExerciseIndex,
+                            exercises: routineExercises,
+                            remainingTime: $remainingTime,
+                            backgroundColor: Color.clear,
+                            accentColor: colorTheme.accentColor,
+                            primaryTextColor: colorTheme.primaryTextColor
+                        )
+                        
+                        // Auxiliary Actions
+                        HStack(spacing: 16) {
+                            Button(action: {
+                                withAnimation(.spring()) {
+                                    routineExercises.shuffle()
+                                    currentExerciseIndex = 0
+                                    remainingTime = routineExercises[0].duration
+                                }
+                            }) {
+                                Image(systemName: "shuffle")
+                                    .font(.system(size: 14, weight: .bold))
+                                    .foregroundColor(.white.opacity(0.6))
+                                    .padding(8)
+                                    .background(.white.opacity(0.1))
+                                    .clipShape(Circle())
+                            }
+                            .buttonStyle(PlainButtonStyle())
+                            
+                            Button(action: {
+                                showExerciseList = true
+                            }) {
+                                Image(systemName: "list.bullet")
+                                    .font(.system(size: 14, weight: .bold))
+                                    .foregroundColor(.white.opacity(0.6))
+                                    .padding(8)
+                                    .background(.white.opacity(0.1))
+                                    .clipShape(Circle())
+                            }
+                            .buttonStyle(PlainButtonStyle())
+                        }
+                    }
                 }
-                .padding()
-                .navigationTitle("Stretch Routines")
-                .navigationBarTitleDisplayMode(.inline)
+                .padding(.bottom, 20)
             }
+        }
+        .sheet(isPresented: $showExerciseList) {
+            VStack {
+                Text("Exercises")
+                    .font(DesignSystem.sectionHeader)
+                    .padding(.top)
+                
+                List {
+                    ForEach(routineExercises.indices, id: \.self) { index in
+                        Button(action: {
+                            currentExerciseIndex = index
+                            remainingTime = routineExercises[index].duration
+                            showExerciseList = false
+                        }) {
+                            HStack {
+                                Image(systemName: routineExercises[index].icon)
+                                    .foregroundColor(.blue)
+                                Text(routineExercises[index].name)
+                                    .font(DesignSystem.bodyText)
+                                Spacer()
+                                if currentExerciseIndex == index {
+                                    Image(systemName: "checkmark.circle.fill")
+                                        .foregroundColor(.green)
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        .onAppear {
+            routineExercises = selectedRoutine.exercises
+            remainingTime = routineExercises[0].duration
+        }
+        .onChange(of: selectedRoutine) { newRoutine in
+            routineExercises = newRoutine.exercises
+            currentExerciseIndex = 0
+            remainingTime = routineExercises[0].duration
         }
         .onReceive(timer) { _ in
             updateExerciseTimer()
-        }
-    }
-    
-    // Existing methods remain the same
-    private func mapToStretchRoutineType(_ routine: StretchRoutine) -> StretchRoutineType {
-        switch routine {
-        case .beginner: return .beginner
-        case .intermediate: return .intermediate
-        case .advanced: return .advanced
-        case .seated: return .seated
         }
     }
     
@@ -134,21 +187,21 @@ struct StretchRoutineView: View {
     }
     
     private func moveToNextExercise() {
-        let exerciseCount = selectedRoutine.exercises.count
+        let exerciseCount = routineExercises.count
         
         // Check if we just finished the last exercise
         if currentExerciseIndex == exerciseCount - 1 {
             // Routine finished
             isExerciseInProgress = false
             currentExerciseIndex = 0
-            remainingTime = selectedRoutine.exercises[0].duration
+            remainingTime = routineExercises[0].duration
             
             // Calculate total duration
-            let totalDuration = selectedRoutine.exercises.reduce(0) { $0 + $1.duration }
+            let totalDuration = routineExercises.reduce(0) { $0 + $1.duration }
             healthManager.saveStretchWorkout(duration: TimeInterval(totalDuration))
         } else {
             currentExerciseIndex += 1
-            remainingTime = selectedRoutine.exercises[currentExerciseIndex].duration
+            remainingTime = routineExercises[currentExerciseIndex].duration
         }
     }
 }

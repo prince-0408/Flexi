@@ -77,8 +77,8 @@ struct ActivityLineChartView: View {
                         HStack(spacing: 0) {
                             ForEach(lineData.indices, id: \.self) { index in
                                 Text(formatDate(lineData[index].date))
-                                    .font(.caption2)
-                                    .foregroundColor(.secondary)
+                                    .font(.system(size: 8, weight: .medium))
+                                    .foregroundColor(.white.opacity(0.6))
                                     .frame(maxWidth: .infinity)
                             }
                         }

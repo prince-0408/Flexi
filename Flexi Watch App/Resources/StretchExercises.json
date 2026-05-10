@@ -1,0 +1,110 @@
+{
+  "beginner": [
+    { "name": "Neck Tilt", "description": "Gently tilt head towards each shoulder.", "duration": 30, "icon": "figure.roll" },
+    { "name": "Chest Opener", "description": "Interlace fingers behind back and lift arms.", "duration": 30, "icon": "figure.arms.open" },
+    { "name": "Quad Stretch", "description": "Stand on one leg, pull other foot to glute.", "duration": 45, "icon": "figure.leg.stretch" },
+    { "name": "Hamstring Reach", "description": "Slowly reach for your toes with straight legs.", "duration": 45, "icon": "figure.stand" },
+    { "name": "Shoulder Shrugs", "description": "Lift shoulders to ears, then drop them.", "duration": 30, "icon": "figure.stand.reaches.down" },
+    { "name": "Side Stretch", "description": "Reach one arm over head and lean sideways.", "duration": 30, "icon": "figure.flexibility" },
+    { "name": "Wrist Circles", "description": "Rotate wrists clockwise and counter-clockwise.", "duration": 20, "icon": "hand.raised.fill" },
+    { "name": "Calf Stretch", "description": "Step back with one foot, press heel down.", "duration": 40, "icon": "figure.walk" },
+    { "name": "Gentle Twist", "description": "Rotate upper body slowly while standing.", "duration": 30, "icon": "figure.cooldown" },
+    { "name": "Arm Circles", "description": "Small circular motions with extended arms.", "duration": 30, "icon": "figure.arms.open" }
+  ],
+  "intermediate": [
+    { "name": "Cat-Cow", "description": "Arch and round your back on all fours.", "duration": 60, "icon": "figure.flexibility" },
+    { "name": "Child's Pose", "description": "Kneel and sit back on heels, arms forward.", "duration": 60, "icon": "person.crop.circle" },
+    { "name": "Deep Breathing", "description": "Focus on slow, rhythmic abdominal breaths.", "duration": 60, "icon": "lungs" },
+    { "name": "Cobra Stretch", "description": "Lie face down, lift chest with arms.", "duration": 45, "icon": "figure.yoga" },
+    { "name": "Spinal Twist", "description": "Lie on back, drop knees to one side.", "duration": 60, "icon": "figure.cooldown" },
+    { "name": "Pigeon Pose", "description": "One leg forward in 90-deg angle, sink hips.", "duration": 60, "icon": "figure.yoga" },
+    { "name": "Thread the Needle", "description": "Reach one arm under the other while on fours.", "duration": 45, "icon": "figure.flexibility" },
+    { "name": "Butterfly Stretch", "description": "Sit with soles of feet together, knees out.", "duration": 60, "icon": "figure.cooldown" },
+    { "name": "Hip Flexor Stretch", "description": "Lunge forward, push hips towards floor.", "duration": 45, "icon": "figure.walk" },
+    { "name": "Puppy Pose", "description": "Hips over knees, reach arms far forward.", "duration": 60, "icon": "figure.yoga" }
+  ],
+  "advanced": [
+    { "name": "Downward Dog", "description": "Inverted V-shape with hands and feet.", "duration": 60, "icon": "figure.yoga" },
+    { "name": "Bridge Pose", "description": "Lie on back, lift hips towards ceiling.", "duration": 60, "icon": "figure.yoga" },
+    { "name": "Warrior II", "description": "Deep lunge, arms extended wide.", "duration": 60, "icon": "figure.stand" },
+    { "name": "Extended Side Angle", "description": "Reach arm over head in side lunge.", "duration": 60, "icon": "figure.flexibility" },
+    { "name": "Triangle Pose", "description": "Legs wide, reach for ankle, look up.", "duration": 60, "icon": "figure.yoga" },
+    { "name": "King Pigeon", "description": "Deep hip opener with backbend.", "duration": 60, "icon": "figure.yoga" },
+    { "name": "Wheel Pose", "description": "Full backbend bridge.", "duration": 45, "icon": "figure.yoga" },
+    { "name": "Lizard Pose", "description": "Deep lunge with forearms on floor.", "duration": 60, "icon": "figure.yoga" },
+    { "name": "Crow Pose", "description": "Balance on hands, knees on triceps.", "duration": 30, "icon": "figure.yoga" },
+    { "name": "Split Practice", "description": "Gradually slide into splits.", "duration": 60, "icon": "figure.flexibility" }
+  ],
+  "seated": [
+    { "name": "Seated Twist", "description": "Rotate torso using chair back for leverage.", "duration": 45, "icon": "figure.flexibility" },
+    { "name": "Seated Cat-Cow", "description": "Arch and round back while sitting.", "duration": 45, "icon": "figure.cooldown" },
+    { "name": "Desk Neck Roll", "description": "Slow circular rotations of the neck.", "duration": 30, "icon": "figure.roll" },
+    { "name": "Seated Forward Fold", "description": "Reach for your feet from the chair.", "duration": 45, "icon": "figure.cooldown" },
+    { "name": "Wrist Extension", "description": "Pull fingers back to stretch forearm.", "duration": 30, "icon": "hand.raised.fill" },
+    { "name": "Shoulder Opener", "description": "Reach arms behind chair back.", "duration": 30, "icon": "figure.arms.open" },
+    { "name": "Seated Leg Lift", "description": "Extend and lift legs while sitting.", "duration": 30, "icon": "figure.leg.stretch" },
+    { "name": "Overhead Reach", "description": "Interlace fingers, reach high up.", "duration": 30, "icon": "figure.arms.open" },
+    { "name": "Seated Side Lean", "description": "Lean sideways over the armrest.", "duration": 30, "icon": "figure.flexibility" },
+    { "name": "Ankle Circles", "description": "Rotate ankles under the desk.", "duration": 30, "icon": "figure.walk" }
+  ],
+  "morning": [
+    { "name": "Sunrise Reach", "description": "Reach arms high, look up at the ceiling.", "duration": 40, "icon": "sun.max.fill" },
+    { "name": "Morning Twist", "description": "Gentle standing spinal rotation.", "duration": 30, "icon": "figure.cooldown" },
+    { "name": "Side Body Wakeup", "description": "Leaning side stretch to open ribs.", "duration": 45, "icon": "figure.flexibility" },
+    { "name": "Ankle Pumps", "description": "Flex and extend feet to boost circulation.", "duration": 30, "icon": "figure.walk" },
+    { "name": "Shoulder Circles", "description": "Large circular motions with shoulders.", "duration": 30, "icon": "figure.arms.open" },
+    { "name": "Neck Lengthener", "description": "Gently pull head to one side.", "duration": 30, "icon": "figure.roll" },
+    { "name": "Standing Cat-Cow", "description": "Spinal mobility while standing.", "duration": 45, "icon": "figure.stand" },
+    { "name": "Hip Circles", "description": "Rotate hips in large circles.", "duration": 40, "icon": "figure.cooldown" },
+    { "name": "Finger Splay", "description": "Stretch hands and fingers wide.", "duration": 20, "icon": "hand.raised.fill" },
+    { "name": "Deep Morning Breath", "description": "Vibrant, energizing inhales.", "duration": 60, "icon": "lungs" }
+  ],
+  "evening": [
+    { "name": "Wind Down Fold", "description": "Slow, relaxed forward bend.", "duration": 60, "icon": "figure.cooldown" },
+    { "name": "Sleepy Twist", "description": "Gentle seated rotation for calmness.", "duration": 45, "icon": "figure.flexibility" },
+    { "name": "Neck Softener", "description": "Gently release tension in the neck.", "duration": 30, "icon": "figure.roll" },
+    { "name": "Evening Child's Pose", "description": "Restful full body release.", "duration": 90, "icon": "person.crop.circle" },
+    { "name": "Legs Up Wall", "description": "Inverted rest for circulation.", "duration": 120, "icon": "figure.stand" },
+    { "name": "Chest Softener", "description": "Open chest with arms out wide.", "duration": 45, "icon": "figure.arms.open" },
+    { "name": "Slow Shoulder Roll", "description": "Mindful backward shoulder circles.", "duration": 40, "icon": "figure.cooldown" },
+    { "name": "Ankle Release", "description": "Gentle slow rotations of feet.", "duration": 30, "icon": "figure.walk" },
+    { "name": "Quiet Breath", "description": "Long, calming exhales.", "duration": 60, "icon": "lungs" },
+    { "name": "Bedtime Stretch", "description": "Final reach before resting.", "duration": 30, "icon": "figure.cooldown" }
+  ],
+  "stressRelief": [
+    { "name": "Jaw Release", "description": "Open mouth wide to release jaw tension.", "duration": 20, "icon": "face.smiling.fill" },
+    { "name": "Eye Rest", "description": "Close eyes and breathe deeply.", "duration": 60, "icon": "eye.fill" },
+    { "name": "Shoulder Drop", "description": "Drop shoulders away from ears.", "duration": 30, "icon": "figure.stand" },
+    { "name": "Desk Spinal Twist", "description": "Seated rotation to release back.", "duration": 45, "icon": "figure.flexibility" },
+    { "name": "Wrist Prayer Stretch", "description": "Press palms together at chest.", "duration": 30, "icon": "hand.raised.fill" },
+    { "name": "Temple Massage", "description": "Gently rub temples with fingers.", "duration": 45, "icon": "figure.roll" },
+    { "name": "Anti-Hunch", "description": "Squeeze shoulder blades together.", "duration": 30, "icon": "figure.arms.open" },
+    { "name": "Grounding Breath", "description": "Feel feet flat on floor, breathe.", "duration": 60, "icon": "lungs" },
+    { "name": "Forearm Stretch", "description": "Pull hand back to stretch wrist.", "duration": 30, "icon": "figure.walk" },
+    { "name": "Gratitude Stretch", "description": "Gentle reach with positive focus.", "duration": 30, "icon": "heart.fill" }
+  ],
+  "postWorkout": [
+    { "name": "Active Quad Stretch", "description": "Dynamic pull of leg to glute.", "duration": 45, "icon": "figure.leg.stretch" },
+    { "name": "Runner's Lunge", "description": "Deep lunge to stretch hip flexors.", "duration": 60, "icon": "figure.walk" },
+    { "name": "Pigeon Release", "description": "Opening hips after leg work.", "duration": 90, "icon": "figure.yoga" },
+    { "name": "Wall Chest Stretch", "description": "Using wall to open shoulders.", "duration": 45, "icon": "figure.arms.open" },
+    { "name": "Hamstring Pump", "description": "Lying leg extension and pull.", "duration": 60, "icon": "figure.stand" },
+    { "name": "T-Spine Rotation", "description": "Thoracic mobility for upper back.", "duration": 45, "icon": "figure.flexibility" },
+    { "name": "Lat Stretch", "description": "Side reach to lengthen lats.", "duration": 45, "icon": "figure.stand" },
+    { "name": "Cool Down Breath", "description": "Lowering heart rate with breath.", "duration": 60, "icon": "lungs" },
+    { "name": "Glute Stretch", "description": "Cross ankle over knee, lean in.", "duration": 60, "icon": "figure.cooldown" },
+    { "name": "Total Body Shake", "description": "Gently shake out all limbs.", "duration": 30, "icon": "figure.run" }
+  ],
+  "yogaFlow": [
+    { "name": "Mountain Pose", "description": "Strong standing foundation.", "duration": 30, "icon": "figure.stand" },
+    { "name": "Sun Salutation A", "description": "Flowing through core movements.", "duration": 120, "icon": "sun.max.fill" },
+    { "name": "Warrior I", "description": "Strong lunge with arms raised.", "duration": 60, "icon": "figure.yoga" },
+    { "name": "Tree Pose", "description": "Balance on one leg, hands high.", "duration": 45, "icon": "figure.yoga" },
+    { "name": "Plank to Cobra", "description": "Strengthening core then opening.", "duration": 60, "icon": "figure.flexibility" },
+    { "name": "Half Moon", "description": "Balance on one hand and leg.", "duration": 45, "icon": "figure.yoga" },
+    { "name": "Boat Pose", "description": "V-sit for core strength.", "duration": 30, "icon": "figure.yoga" },
+    { "name": "Camel Pose", "description": "Deep kneeling backbend.", "duration": 45, "icon": "figure.yoga" },
+    { "name": "Garland Pose", "description": "Deep yogic squat.", "duration": 60, "icon": "figure.cooldown" },
+    { "name": "Final Savasana", "description": "Corpse pose for total stillness.", "duration": 120, "icon": "person.crop.circle" }
+  ]
+}

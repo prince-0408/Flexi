@@ -5,105 +5,72 @@
 //  Created by Prince Yadav on 02/12/24.
 //
 import Foundation
-
 import SwiftUI
 
-// Define the StretchExercise struct
-struct StretchExercise: Identifiable {
-    let id = UUID()
+struct StretchExercise: Identifiable, Decodable {
+    var id = UUID()
     let name: String
     let description: String
     let duration: Int
     let icon: String
+    
+    enum CodingKeys: String, CodingKey {
+        case name, description, duration, icon
+    }
 }
 
-extension StretchRoutineType {
+struct ExerciseData: Decodable {
+    let beginner: [StretchExercise]
+    let intermediate: [StretchExercise]
+    let advanced: [StretchExercise]
+    let seated: [StretchExercise]
+    let morning: [StretchExercise]
+    let evening: [StretchExercise]
+    let stressRelief: [StretchExercise]
+    let postWorkout: [StretchExercise]
+    let yogaFlow: [StretchExercise]
+}
+
+extension StretchRoutine {
     var exercises: [StretchExercise] {
-        switch self {
-        case .advanced:
-            return [
-                StretchExercise(
-                    name: "Neck Stretch",
-                    description: "Gently tilt head to sides",
-                    duration: 30,
-                    icon: "figure.roll"
-                ),
-                StretchExercise(
-                    name: "Shoulder Rolls",
-                    description: "Roll shoulders backward and forward",
-                    duration: 30,
-                    icon: "figure.arms.open"
-                ),
-                StretchExercise(
-                    name: "Seated Twist",
-                    description: "Rotate torso while seated",
-                    duration: 30,
-                    icon: "figure.flexibility"
-                )
-            ]
-        case .beginner:
-            return [
-                StretchExercise(
-                    name: "Quad Stretch",
-                    description: "Hold each leg and pull towards buttocks",
-                    duration: 45,
-                    icon: "figure.leg.stretch"
-                ),
-                StretchExercise(
-                    name: "Hamstring Stretch",
-                    description: "Bend forward with straight legs",
-                    duration: 45,
-                    icon: "figure.stand"
-                ),
-                StretchExercise(
-                    name: "Chest Opener",
-                    description: "Extend arms behind back",
-                    duration: 30,
-                    icon: "figure.arms.open"
-                )
-            ]
-        case .intermediate:
-            return [
-                StretchExercise(
-                    name: "Deep Breathing",
-                    description: "Slow, deep breaths",
-                    duration: 60,
-                    icon: "lungs"
-                ),
-                StretchExercise(
-                    name: "Child's Pose",
-                    description: "Gentle full-body stretch",
-                    duration: 45,
-                    icon: "person.crop.circle"
-                ),
-                StretchExercise(
-                    name: "Neck Release",
-                    description: "Slow neck rotations",
-                    duration: 30,
-                    icon: "figure.roll"
-                )
-            ]
-        case .seated:
-            return [
-                StretchExercise(
-                    name: "Seated Torso Twist",
-                    description: "Gently twist your torso",
-                    duration: 45,
-                    icon: "figure.flexibility"
-                ),
-                StretchExercise(
-                    name: "Shoulder Shrugs",
-                    description: "Lift and lower shoulders",
-                    duration: 30,
-                    icon: "figure.arms.open"
-                ),
-                StretchExercise(
-                    name: "Neck Release",
-                    description: "Slow neck rotations",
-                    duration: 30,
-                    icon: "figure.roll"
-                )
-            ]
+        return ExerciseLoader.shared.getExercises(for: self)
+    }
+}
+
+class ExerciseLoader {
+    static let shared = ExerciseLoader()
+    private var data: ExerciseData?
+    
+    private init() {
+        loadData()
+    }
+    
+    private func loadData() {
+        guard let url = Bundle.main.url(forResource: "StretchExercises", withExtension: "json") else {
+            print("❌ StretchExercises.json not found")
+            return
+        }
+        
+        do {
+            let jsonData = try Data(contentsOf: url)
+            self.data = try JSONDecoder().decode(ExerciseData.self, from: jsonData)
+        } catch {
+            print("❌ Error decoding StretchExercises.json: \(error)")
+        }
+    }
+    
+    func getExercises(for type: StretchRoutine) -> [StretchExercise] {
+        guard let data = data else { return [] }
+        switch type {
+        case .beginner: return data.beginner
+        case .intermediate: return data.intermediate
+        case .advanced: return data.advanced
+        case .seated: return data.seated
+        case .morning: return data.morning
+        case .evening: return data.evening
+        case .stressRelief: return data.stressRelief
+        case .postWorkout: return data.postWorkout
+        case .yogaFlow: return data.yogaFlow
         }
     }
 }

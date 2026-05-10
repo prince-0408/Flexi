@@ -41,74 +41,64 @@ struct DashboardView: View {
     
     private var content: some View {
         ScrollView(.vertical, showsIndicators: false) {
-            VStack(spacing: 20) {
+            VStack(spacing: 24) { // Increased spacing for better hierarchy
                 headerSection()
                 activitySection()
                 quickStatsSection()
                 healthMetricsSection()
             }
-            .padding(.horizontal, 16)
-            .padding(.vertical, 12)
+            .padding(.horizontal, 12)
+            .padding(.vertical, 16)
         }
     }
     
     private func headerSection() -> some View {
-        VStack(alignment: .leading, spacing: 10) {
-            Text("Hello")
-                .font(.headline)
-                .foregroundColor(primaryTextColor)
+        VStack(alignment: .leading, spacing: 6) {
+            Text("DAILY OVERVIEW")
+                .font(DesignSystem.sectionHeader)
+                .foregroundColor(.white.opacity(0.8)) // Increased visibility
+                .padding(.leading, 8)
             
             HeaderView()
-                .frame(height: 68)
-                .background(sectionBackground)
-                .cornerRadius(12)
+                .glassyCard()
         }
     }
     
     private func activitySection() -> some View {
-        VStack(alignment: .leading, spacing: 10) {
-            Text("Activity Insights")
-                .font(.headline)
-                .foregroundColor(primaryTextColor)
+        VStack(alignment: .leading, spacing: 6) {
+            Text("ACTIVITY TREND")
+                .font(DesignSystem.sectionHeader)
+                .foregroundColor(.white.opacity(0.8))
+                .padding(.leading, 8)
             
             ActivityLineChartView()
-                .frame(height: 150)
-                .background(sectionBackground)
-                .cornerRadius(12)
+                .frame(height: 130)
+                .glassyCard()
         }
     }
     
     private func quickStatsSection() -> some View {
-        VStack(alignment: .leading, spacing: 10) {
-            Text("Quick Stats")
-                .font(.headline)
-                .foregroundColor(primaryTextColor)
+        VStack(alignment: .leading, spacing: 6) {
+            Text("HEALTH METRICS")
+                .font(DesignSystem.sectionHeader)
+                .foregroundColor(.white.opacity(0.8))
+                .padding(.leading, 8)
             
             QuickStatsView()
-                .frame(height: 150)
-                .background(sectionBackground)
-                .cornerRadius(12)
+                .glassyCard()
         }
     }
     
     private func healthMetricsSection() -> some View {
-        VStack(alignment: .leading, spacing: 10) {
-            Text("Posture Health")
-                .font(.headline)
-                .foregroundColor(primaryTextColor)
+        VStack(alignment: .leading, spacing: 6) {
+            Text("POSTURE HEALTH")
+                .font(DesignSystem.sectionHeader)
+                .foregroundColor(.white.opacity(0.8))
+                .padding(.leading, 8)
             
             PostureHealthView()
-                .background(sectionBackground)
-                .cornerRadius(12)
+                .glassyCard()
         }
-    }
-    
-    // Reusable background for sections
-    private var sectionBackground: some View {
-        RoundedRectangle(cornerRadius: 12)
-            .fill(Color.clear)
-            .background(.ultraThinMaterial)
-            .clipShape(RoundedRectangle(cornerRadius: 12))
     }
 }
 

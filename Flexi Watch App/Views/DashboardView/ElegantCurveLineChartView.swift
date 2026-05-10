@@ -55,15 +55,20 @@ struct ElegantCurveLineChartView: View {
             let normalizedData = normalizeData(data, in: chartHeight)
             
             ZStack {
-                // Background Gradient
-                LinearGradient(
-                    gradient: Gradient(colors: [
-                        lineColor.opacity(0.05),
-                        Color.clear
-                    ]),
-                    startPoint: .top,
-                    endPoint: .bottom
-                )
+                // Volumetric Fill
+                createFilledCurvePath(with: normalizedData, in: chartHeight)
+                    .fill(
+                        LinearGradient(
+                            gradient: Gradient(colors: [
+                                lineColor.opacity(0.3),
+                                lineColor.opacity(0.0)
+                            ]),
+                            startPoint: .top,
+                            endPoint: .bottom
+                        )
+                    )
+                    .opacity(animationProgress)
+                    .animation(.easeInOut(duration: 1.5), value: animationProgress)
                 
                 // Floating Line Effect
                 createCurvePath(with: normalizedData)
@@ -147,14 +152,24 @@ struct ElegantCurveLineChartView: View {
         
         let min = data.min() ?? 0
         let max = data.max() ?? 0
-        let range = max - min
+        let range = max - min == 0 ? 1 : max - min
         
         return data.enumerated().map { (index, value) in
             CGPoint(
                 x: CGFloat(index) * (frame.width / CGFloat(data.count - 1)),
-                y: height - ((value - min) / range * height)
+                y: height - ((value - min) / range * height * 0.8) - (height * 0.1)
             )
         }
+    }
+    
+    private func createFilledCurvePath(with normalizedData: [CGPoint], in height: CGFloat) -> Path {
+        var path = createCurvePath(with: normalizedData)
+        guard let lastPoint = normalizedData.last, let firstPoint = normalizedData.first else { return path }
+        
+        path.addLine(to: CGPoint(x: lastPoint.x, y: height))
+        path.addLine(to: CGPoint(x: firstPoint.x, y: height))
+        path.closeSubpath()
+        return path
     }
 }
 

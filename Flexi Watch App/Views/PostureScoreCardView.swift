@@ -4,6 +4,7 @@
 //
 //  Created by Prince Yadav on 02/12/24.
 //
+
 import SwiftUI
 
 struct PostureScoreCardView: View {
@@ -74,145 +75,63 @@ struct PostureScoreCardView: View {
     }
     
     var body: some View {
-        GeometryReader { geometry in
-            ZStack {
-                // Content (Containerless Edge-to-Edge Design)
-                VStack(spacing: calculateSpacing(for: geometry.size.width)) {
-                    // Header Section
-                    headerSection
+        VStack(spacing: 12) {
+            HStack {
+                VStack(alignment: .leading, spacing: 0) {
+                    Text("CURRENT SCORE")
+                        .font(DesignSystem.sectionHeader)
+                        .foregroundColor(.white.opacity(0.6))
                     
-                    // Circular Score Visualization
-                    scoreVisualization
+                    Text(scoreDescription)
+                        .font(DesignSystem.bodyText)
+                        .fontWeight(.bold)
+                        .foregroundColor(.white)
                 }
-                .padding(calculatePadding(for: geometry.size.width))
-            }
-            .frame(width: geometry.size.width, height: geometry.size.height)
-            .background(
-                GeometryReader { innerGeo in
-                    Color.clear.preference(key: SizePreferenceKey.self, value: innerGeo.size)
+                Spacer()
+                ZStack {
+                    Circle()
+                        .fill(scoreGradient.opacity(0.1))
+                        .frame(width: 32, height: 32)
+                    Image(systemName: score >= 70 ? "star.fill" : "exclamationmark.triangle.fill")
+                        .font(.system(size: 14, weight: .bold))
+                        .foregroundColor(score >= 70 ? .green : .orange)
                 }
-            )
-            .onPreferenceChange(SizePreferenceKey.self) { size in
-                self.cardSize = size
             }
-            .scaleEffect(isPressed ? 0.95 : 1.0)
-            .animation(.spring(), value: isPressed)
-            .gesture(
-                DragGesture(minimumDistance: 0)
-                    .onChanged { _ in
-                        withAnimation {
-                            isPressed = true
-                        }
-                    }
-                    .onEnded { _ in
-                        withAnimation {
-                            isPressed = false
-                            showDetails = true
-                        }
-                    }
-            )
-            .sheet(isPresented: $showDetails) {
-                PostureDetailView(score: score)
-                    .presentationDetents([.medium, .large])
-            }
-        }
-        .frame(width: calculateCardWidth(), height: calculateCardWidth() * 1.1)
-        .onAppear(perform: startAnimation)
-    }
-    
-    // Adaptive sizing methods
-    private func calculateSpacing(for width: CGFloat) -> CGFloat {
-        return width * 0.06
-    }
-    
-    private func calculatePadding(for width: CGFloat) -> CGFloat {
-        return width * 0.08
-    }
-    
-    private func calculateFontSize(baseSize: CGFloat) -> CGFloat {
-        let scaleFactor = cardSize.width / 180 // Normalize against a base width
-        return baseSize * scaleFactor
-    }
-    
-    private func calculateLineWidth() -> CGFloat {
-        return cardSize.width * 0.067
-    }
-    
-    private func calculateCircleSize() -> CGFloat {
-        return cardSize.width * 0.9
-    }
-    
-    // Animation and interaction methods
-    private func startAnimation() {
-        withAnimation(.easeInOut(duration: 1.2)) {
-            animationProgress = 1.0
-        }
-    }
-    
-    // Header Section with Adaptive Design
-    private var headerSection: some View {
-        HStack {
-            VStack(alignment: .leading, spacing: 2) {
-                Text("Posture Health")
-                    .font(.system(size: calculateFontSize(baseSize: 14)))
-                    .fontWeight(.semibold)
+            
+            ZStack {
+                // Background Track
+                Circle()
+                    .stroke(Color.white.opacity(0.1), lineWidth: 8)
                 
-                Text(scoreDescription)
-                    .font(.system(size: calculateFontSize(baseSize: 12)))
-                    .foregroundColor(.secondary)
-            }
-            
-            Spacer()
-            
-            Button {
-                showDetails = true
-            } label: {
-                Image(systemName: "info.circle.fill")
-                    .foregroundStyle(scoreGradient)
-                    .font(.system(size: calculateFontSize(baseSize: 20)))
-                    .scaleEffect(isPressed ? 0.8 : 1.0)
-                    .animation(.spring(), value: isPressed)
-            }
-        }
-    }
-    
-    // Score Visualization with Adaptive Design
-    private var scoreVisualization: some View {
-        ZStack {
-            // Background Circle
-            Circle()
-                .stroke(scoreGradient.opacity(0.2), lineWidth: calculateLineWidth())
-            
-            // Progress Circle
-            Circle()
-                .trim(from: 0, to: CGFloat(animationProgress * min(score / 100, 1.0)))
-                .stroke(
-                    scoreGradient,
-                    style: StrokeStyle(lineWidth: calculateLineWidth(), lineCap: .round)
-                )
-                .rotationEffect(.degrees(-90))
-                .animation(.easeInOut(duration: 1.2), value: animationProgress)
-            
-            // Score Text
-            VStack(spacing: 2) {
-                Text("\(Int(score))")
-                    .font(.system(size: calculateFontSize(baseSize: 55), weight: .heavy, design: .rounded))
-                    .contentTransition(.numericText())
-                    .foregroundStyle(scoreGradient)
-                    .scaleEffect(animationProgress)
-                    .animation(.spring(response: 0.5, dampingFraction: 0.6), value: animationProgress)
+                // Progress Track
+                Circle()
+                    .trim(from: 0, to: animationProgress * (score / 100))
+                    .stroke(
+                        scoreGradient,
+                        style: StrokeStyle(lineWidth: 8, lineCap: .round)
+                    )
+                    .rotationEffect(.degrees(-90))
                 
-                Text("SCORE")
-                    .font(.system(size: calculateFontSize(baseSize: 10)))
-                    .foregroundColor(.secondary)
-                    .opacity(animationProgress)
-                    .animation(.easeInOut(duration: 1.2), value: animationProgress)
+                // Score Text
+                VStack(spacing: -4) {
+                    Text("\(Int(score))")
+                        .font(DesignSystem.massiveMetric)
+                        .foregroundColor(.white)
+                    Text("%")
+                        .font(DesignSystem.captionText)
+                        .fontWeight(.black)
+                        .foregroundColor(.white.opacity(0.4))
+                }
+            }
+            .frame(width: 100, height: 100)
+            .padding(.vertical, 8)
+        }
+        .padding(16)
+        .onAppear {
+            withAnimation(.spring(response: 0.8, dampingFraction: 0.7)) {
+                animationProgress = 1.0
             }
         }
-        .frame(width: calculateCircleSize(), height: calculateCircleSize())
-        .accessibilityElement(children: .ignore)
-        .accessibilityLabel("Posture score")
-        .accessibilityValue("\(Int(score)) out of 100, \(scoreDescription)")
     }
 }
 

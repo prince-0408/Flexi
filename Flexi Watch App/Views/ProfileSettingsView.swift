@@ -21,31 +21,110 @@ struct ProfileSettingsView: View {
     }
     
     var body: some View {
-        Form {
-            Section(header: Text("Personal Information")) {
-                Stepper("Age: \(age)", value: $age, in: 18...100)
+        ScrollView {
+            VStack(spacing: 12) {
+                // Personal Info Section Header
+                HStack {
+                    Text("PERSONAL INFORMATION")
+                        .font(DesignSystem.sectionHeader)
+                        .foregroundColor(.white.opacity(0.6))
+                    Spacer()
+                }
+                .padding(.horizontal, 4)
                 
-                Picker("Activity Level", selection: $activityLevel) {
-                    ForEach(ActivityLevel.allCases, id: \.self) { level in
-                        Text(level.rawValue)
+                // Age Setting (Glass Well)
+                VStack(spacing: 8) {
+                    HStack {
+                        Image(systemName: "person.fill")
+                            .foregroundColor(.blue)
+                        Text("Age")
+                            .font(DesignSystem.bodyText)
+                        Spacer()
+                        Text("\(age)")
+                            .font(DesignSystem.primaryTitle)
+                            .foregroundColor(.white)
                     }
+                    
+                    Stepper(value: $age, in: 18...100) {
+                        EmptyView()
+                    }
+                    .labelsHidden()
+                }
+                .padding(12)
+                .glassyCard()
+                
+                // Weight & Height (Compact Grid)
+                HStack(spacing: 8) {
+                    MetricAdjuster(title: "Weight", value: "\(Int(weight))", unit: "KG", icon: "scalemass.fill")
+                    MetricAdjuster(title: "Height", value: "\(Int(height))", unit: "CM", icon: "ruler.fill")
                 }
                 
-                HStack {
-                    Text("Weight")
-                    Spacer()
-                    Text("\(String(format: "%.1f", weight)) kg")
+                // Activity Level Picker
+                VStack(alignment: .leading, spacing: 8) {
+                    HStack {
+                        Image(systemName: "flame.fill")
+                            .foregroundColor(.orange)
+                        Text("Activity Level")
+                            .font(DesignSystem.bodyText)
+                        Spacer()
+                    }
+                    
+                    Picker("", selection: $activityLevel) {
+                        ForEach(ActivityLevel.allCases, id: \.self) { level in
+                            Text(level.rawValue).tag(level)
+                        }
+                    }
+                    .pickerStyle(.wheel)
+                    .frame(height: 50)
                 }
-                Slider(value: $weight, in: 40...150, step: 0.1)
-                
-                HStack {
-                    Text("Height")
-                    Spacer()
-                    Text("\(String(format: "%.0f", height)) cm")
-                }
-                Slider(value: $height, in: 140...220, step: 1)
+                .padding(12)
+                .glassyCard()
+            }
+            .padding(.horizontal, 8)
+            .padding(.bottom, 20)
+        }
+        .navigationTitle("Profile")
+    }
+}
+
+struct MetricAdjuster: View {
+    let title: String
+    let value: String
+    let unit: String
+    let icon: String
+    
+    var body: some View {
+        VStack(spacing: 4) {
+            Image(systemName: icon)
+                .font(.system(size: 14))
+                .foregroundColor(.blue)
+            
+            Text(title.uppercased())
+                .font(.system(size: 8, weight: .bold))
+                .foregroundColor(.white.opacity(0.5))
+            
+            HStack(alignment: .firstTextBaseline, spacing: 1) {
+                Text(value)
+                    .font(DesignSystem.primaryTitle)
+                    .foregroundColor(.white)
+                Text(unit)
+                    .font(.system(size: 8, weight: .black))
+                    .foregroundColor(.white.opacity(0.4))
             }
         }
-        .navigationTitle("Profile Settings")
+        .frame(maxWidth: .infinity)
+        .padding(.vertical, 10)
+        .glassyCard()
+    }
+}
+
+struct ProfileSettingsView_Previews: PreviewProvider {
+    static var previews: some View {
+        NavigationView {
+            ZStack {
+                Color.black.edgesIgnoringSafeArea(.all)
+                ProfileSettingsView()
+            }
+        }
     }
 }

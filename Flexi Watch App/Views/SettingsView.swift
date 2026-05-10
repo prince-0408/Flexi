@@ -78,84 +78,100 @@ struct SettingsView: View {
     var body: some View {
         NavigationView {
             ZStack {
-                // Background Gradient
-                AppColors.backgroundGradient(for: colorScheme)
+                Color.clear
                     .edgesIgnoringSafeArea(.all)
                 
-                Form {
-                    // Appearance Section
-                    Section(header: Text("Appearance")
-                        .foregroundColor(colorScheme == .dark ? AppColors.darkPrimary : AppColors.lightPrimary)) {
-                        Picker("App Theme", selection: $selectedAppearance) {
-                            ForEach(AppAppearance.allCases, id: \.self) { appearance in
-                                Text(appearance.rawValue)
-                                    .tag(appearance)
-                                    .foregroundColor(colorScheme == .dark ? AppColors.darkAccent : AppColors.lightAccent)
-                            }
-                        }
-                    }
-                    
-                    // Notification Settings Section
-                    Section(header: Text("Notifications")
-                        .foregroundColor(colorScheme == .dark ? AppColors.darkPrimary : AppColors.lightPrimary)) {
-                        Toggle("Enable Notifications", isOn: $notificationsEnabled)
-                            .toggleStyle(SwitchToggleStyle(tint: colorScheme == .dark ? AppColors.darkAccent : AppColors.lightAccent))
-                        
-                        if notificationsEnabled {
-                            Picker("Posture Alert", selection: $postureAlertFrequency) {
-                                ForEach([15, 30, 45, 60], id: \.self) { minutes in
-                                    Text("\(minutes) min")
+                ScrollView {
+                    VStack(spacing: 20) {
+                        // Appearance Section
+                        settingsSection(title: "Appearance") {
+                            Picker("App Theme", selection: $selectedAppearance) {
+                                ForEach(AppAppearance.allCases, id: \.self) { appearance in
+                                    Text(appearance.rawValue).tag(appearance)
                                 }
                             }
                             .accentColor(colorScheme == .dark ? AppColors.darkPrimary : AppColors.lightPrimary)
-                            
-                            Toggle("Stretch Reminders", isOn: $stretchReminders)
+                        }
+                        
+                        // Notifications Section
+                        settingsSection(title: "Notifications") {
+                            Toggle("Enable Notifications", isOn: $notificationsEnabled)
                                 .toggleStyle(SwitchToggleStyle(tint: colorScheme == .dark ? AppColors.darkAccent : AppColors.lightAccent))
-                        }
-                    }
-                    
-                    // Health Integration Section
-                    Section(header: Text("Health")
-                        .foregroundColor(colorScheme == .dark ? AppColors.darkPrimary : AppColors.lightPrimary)) {
-                        Button(action: requestHealthKitPermission) {
-                            HStack {
-                                Image(systemName: "heart.text.square")
-                                    .foregroundColor(colorScheme == .dark ? AppColors.darkAccent : AppColors.lightAccent)
-                                Text("Connect HealthKit")
-                                    .foregroundColor(colorScheme == .dark ? .white : .black)
+                            
+                            if notificationsEnabled {
+                                Divider()
+                                Picker("Posture Alert", selection: $postureAlertFrequency) {
+                                    ForEach([15, 30, 45, 60], id: \.self) { minutes in
+                                        Text("\(minutes) min")
+                                    }
+                                }
+                                .accentColor(colorScheme == .dark ? AppColors.darkPrimary : AppColors.lightPrimary)
+                                
+                                Divider()
+                                Toggle("Stretch Reminders", isOn: $stretchReminders)
+                                    .toggleStyle(SwitchToggleStyle(tint: colorScheme == .dark ? AppColors.darkAccent : AppColors.lightAccent))
                             }
                         }
                         
-                        if healthKitPermission {
-                            Text("HealthKit Connected")
-                                .foregroundColor(colorScheme == .dark ? AppColors.darkAccent : AppColors.lightAccent)
-                        }
-                    }
-                    
-                    // Advanced Settings Section
-                    Section(header: Text("Advanced")
-                        .foregroundColor(colorScheme == .dark ? AppColors.darkPrimary : AppColors.lightPrimary)) {
-                        NavigationLink(destination: ProfileSettingsView()) {
-                            HStack {
-                                Image(systemName: "person.crop.circle")
+                        // Health Integration Section
+                        settingsSection(title: "Health") {
+                            Button(action: requestHealthKitPermission) {
+                                HStack {
+                                    Image(systemName: "heart.text.square")
+                                        .font(.system(size: 18, weight: .semibold))
+                                        .foregroundColor(colorScheme == .dark ? AppColors.darkAccent : AppColors.lightAccent)
+                                    Text("Connect HealthKit")
+                                        .foregroundColor(colorScheme == .dark ? .white : .black)
+                                }
+                            }
+                            .buttonStyle(PlainButtonStyle())
+                            
+                            if healthKitPermission {
+                                Divider()
+                                Text("HealthKit Connected")
                                     .foregroundColor(colorScheme == .dark ? AppColors.darkAccent : AppColors.lightAccent)
-                                Text("Profile")
-                                    .foregroundColor(colorScheme == .dark ? .white : .black)
+                                    .font(.caption)
                             }
                         }
                         
-                        NavigationLink(destination: GoalSettingsView()) {
-                            HStack {
-                                Image(systemName: "flag.checkered")
-                                    .foregroundColor(colorScheme == .dark ? AppColors.darkAccent : AppColors.lightAccent)
-                                Text("Goals")
-                                    .foregroundColor(colorScheme == .dark ? .white : .black)
+                        // Advanced Settings Section
+                        settingsSection(title: "Advanced") {
+                            NavigationLink(destination: ProfileSettingsView()) {
+                                HStack {
+                                    Image(systemName: "person.crop.circle")
+                                        .font(.system(size: 18, weight: .semibold))
+                                        .foregroundColor(colorScheme == .dark ? AppColors.darkAccent : AppColors.lightAccent)
+                                    Text("Profile")
+                                        .foregroundColor(colorScheme == .dark ? .white : .black)
+                                    Spacer()
+                                    Image(systemName: "chevron.right")
+                                        .font(.caption)
+                                        .foregroundColor(.gray)
+                                }
                             }
+                            .buttonStyle(PlainButtonStyle())
+                            
+                            Divider()
+                            
+                            NavigationLink(destination: GoalSettingsView()) {
+                                HStack {
+                                    Image(systemName: "flag.checkered")
+                                        .font(.system(size: 18, weight: .semibold))
+                                        .foregroundColor(colorScheme == .dark ? AppColors.darkAccent : AppColors.lightAccent)
+                                    Text("Goals")
+                                        .foregroundColor(colorScheme == .dark ? .white : .black)
+                                    Spacer()
+                                    Image(systemName: "chevron.right")
+                                        .font(.caption)
+                                        .foregroundColor(.gray)
+                                }
+                            }
+                            .buttonStyle(PlainButtonStyle())
                         }
                     }
+                    .padding(.vertical)
                 }
                 .navigationTitle("Settings")
-                .foregroundColor(colorScheme == .dark ? .white : .black)
             }
         }
         // Apply the selected appearance to the entire view
@@ -166,6 +182,22 @@ struct SettingsView: View {
                 message: Text("Unable to access HealthKit. Please check permissions."),
                 dismissButton: .default(Text("OK"))
             )
+        }
+    }
+    
+    private func settingsSection<Content: View>(title: String, @ViewBuilder content: () -> Content) -> some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Text(title.uppercased())
+                .font(DesignSystem.sectionHeader)
+                .foregroundColor(.secondary)
+                .padding(.horizontal, 16)
+            
+            VStack(spacing: 12) {
+                content()
+            }
+            .padding(12)
+            .glassyCard()
+            .padding(.horizontal, 12)
         }
     }
     

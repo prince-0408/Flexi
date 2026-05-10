@@ -55,55 +55,37 @@ struct PostureTrendChartView: View {
     
     var body: some View {
         ScrollView {
-            VStack(spacing: 12) {
+            VStack(spacing: 20) {
                 // Header
                 VStack(alignment: .leading, spacing: 4) {
-                    Text("Posture Insights")
-                        .font(.headline)
-                        .foregroundColor(.white)
+                    Text("TREND ANALYSIS")
+                        .font(DesignSystem.sectionHeader)
+                        .foregroundColor(.white.opacity(0.6))
                     
-                    Text("Your Posture Performance")
-                        .font(.caption2)
-                        .foregroundColor(.gray)
+                    Text("Posture Performance")
+                        .font(DesignSystem.primaryTitle)
+                        .foregroundColor(.white)
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.horizontal)
                 
                 // Time Period Selector
                 ScrollView(.horizontal, showsIndicators: false) {
-                    HStack(spacing: 10) {
+                    HStack(spacing: 8) {
                         ForEach(TimePeriod.allCases, id: \.self) { period in
                             Button(action: {
-                                withAnimation(.smooth) {
+                                withAnimation(.spring()) {
                                     selectedTimePeriod = period
                                 }
                             }) {
                                 Text(period.rawValue)
-                                    .font(.caption)
-                                    .foregroundColor(selectedTimePeriod == period ? .white : .gray)
-                                    .padding(.horizontal, 15)
+                                    .font(DesignSystem.captionText)
+                                    .fontWeight(.bold)
+                                    .foregroundColor(selectedTimePeriod == period ? .white : .white.opacity(0.4))
+                                    .padding(.horizontal, 16)
                                     .padding(.vertical, 8)
-                                    .background(
-                                        selectedTimePeriod == period
-                                        ? LinearGradient(
-                                            gradient: Gradient(colors: [
-                                                Color.blue.opacity(0.7),
-                                                Color.blue.opacity(0.5)
-                                            ]),
-                                            startPoint: .top,
-                                            endPoint: .bottom
-                                        )
-                                        : LinearGradient(
-                                            gradient: Gradient(colors: [
-                                                Color.gray.opacity(0.2),
-                                                Color.gray.opacity(0.1)
-                                            ]),
-                                            startPoint: .top,
-                                            endPoint: .bottom
-                                        )
-                                    )
+                                    .background(selectedTimePeriod == period ? .blue : .white.opacity(0.1))
                                     .cornerRadius(20)
-                                    .shadow(color: selectedTimePeriod == period ? .blue.opacity(0.3) : .clear, radius: 5, x: 0, y: 2)
                             }
                             .buttonStyle(PlainButtonStyle())
                         }
@@ -122,41 +104,22 @@ struct PostureTrendChartView: View {
                         .foregroundStyle(
                             LinearGradient(
                                 gradient: Gradient(colors: [
-                                    scoreColor(reading.score).opacity(0.7),
-                                    scoreColor(reading.score).opacity(0.3)
+                                    scoreColor(reading.score),
+                                    scoreColor(reading.score).opacity(0.2)
                                 ]),
                                 startPoint: .top,
                                 endPoint: .bottom
                             )
                         )
-                        
-                        PointMark(
-                            x: .value("Date", reading.timestamp),
-                            y: .value("Score", reading.score)
-                        )
-                        .foregroundStyle(scoreColor(reading.score))
                     }
-                    .frame(height: 120)
+                    .frame(height: 100)
                 }
-                .padding()
-                .background(
-                    RoundedRectangle(cornerRadius: 15)
-                        .fill(
-                            LinearGradient(
-                                gradient: Gradient(colors: [
-                                    Color.gray.opacity(0.1),
-                                    Color.gray.opacity(0.05)
-                                ]),
-                                startPoint: .top,
-                                endPoint: .bottom
-                            )
-                        )
-                        .shadow(color: .black.opacity(0.1), radius: 10, x: 0, y: 5)
-                )
+                .padding(12)
+                .glassyCard()
                 .padding(.horizontal)
                 
                 // Performance Metrics
-                HStack(spacing: 10) {
+                HStack(spacing: 8) {
                     MetricCard(
                         title: "Best",
                         value: Int(summaryStatistics.bestReading?.score ?? 0),
@@ -176,27 +139,7 @@ struct PostureTrendChartView: View {
                     )
                 }
                 .padding(.horizontal)
-                
-                // Motivational Message
-                Text(motivationalText)
-                    .font(.caption)
-                    .foregroundColor(.secondary)
-                    .multilineTextAlignment(.center)
-                    .padding()
             }
-        }
-        .background(Color.black)
-    }
-    
-    private var motivationalText: String {
-        let avgScore = summaryStatistics.averageScore
-        switch avgScore {
-        case 80...100:
-            return "Excellent posture! Keep up the great work! 🏆"
-        case 50...79:
-            return "You're improving. Small steps make big differences! 💪"
-        default:
-            return "Let's focus on your posture and make progress! 🌟"
         }
     }
 }
@@ -208,29 +151,24 @@ struct MetricCard: View {
     
     var body: some View {
         VStack(spacing: 4) {
-            Text(title)
-                .font(.caption2)
-                .foregroundColor(.gray)
+            Text(title.uppercased())
+                .font(DesignSystem.captionText)
+                .fontWeight(.bold)
+                .foregroundColor(.white.opacity(0.4))
             
             Text("\(value)")
-                .font(.system(size: 14, weight: .bold))
+                .font(DesignSystem.bodyText)
+                .fontWeight(.heavy)
                 .foregroundColor(color)
         }
         .frame(maxWidth: .infinity)
-        .padding(8)
-        .background(
-            RoundedRectangle(cornerRadius: 10)
-                .fill(
-                    LinearGradient(
-                        gradient: Gradient(colors: [
-                            color.opacity(0.1),
-                        ]),
-                        startPoint: .top,
-                        endPoint: .bottom
-                    )
-                )
+        .padding(.vertical, 12)
+        .background(.white.opacity(0.05))
+        .cornerRadius(16)
+        .overlay(
+            RoundedRectangle(cornerRadius: 16)
+                .stroke(color.opacity(0.2), lineWidth: 1)
         )
-        .cornerRadius(10)
     }
 }
 

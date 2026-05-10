@@ -7,60 +7,111 @@
 import SwiftUI
 
 struct CurrentExerciseView: View {
-    let routineType: StretchRoutineType
-        let currentIndex: Int
-        let isInProgress: Bool
-        let remainingTime: Int
-        let backgroundColor: Color?
-        let primaryTextColor: Color
-        let secondaryTextColor: Color
-        let accentColor: Color
-        let progressColor: Color
-    @State private var isBreathing = false
+    let exercises: [StretchExercise]
+    let currentIndex: Int
+    let isInProgress: Bool
+    let remainingTime: Int
+    let backgroundColor: Color?
+    let primaryTextColor: Color
+    let secondaryTextColor: Color
+    let accentColor: Color
+    let progressColor: Color
+    
+    @State private var animationPhase: CGFloat = 0
 
     var body: some View {
-        VStack(spacing: 10) {
-            // Exercise Image - Reduced size for watch
-            Image(systemName: routineType.exercises[currentIndex].icon)
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(width: 80, height: 80)
-                .foregroundColor(.blue)
+        VStack(spacing: 16) {
+            // Hero Visual Section
+            ZStack {
+                // Outer Volumetric Glow
+                Circle()
+                    .fill(
+                        RadialGradient(
+                            gradient: Gradient(colors: [.blue.opacity(0.3), .clear]),
+                            center: .center,
+                            startRadius: 0,
+                            endRadius: 60
+                        )
+                    )
+                    .scaleEffect(1.0 + (animationPhase * 0.2))
+                
+                // Progress Ring
+                Circle()
+                    .stroke(Color.white.opacity(0.1), lineWidth: 6)
+                    .frame(width: 110, height: 110)
+                
+                Circle()
+                    .trim(from: 0, to: CGFloat(remainingTime) / 30.0) // Assuming 30s base for visualization
+                    .stroke(
+                        LinearGradient(gradient: Gradient(colors: [.blue, .cyan]), startPoint: .top, endPoint: .bottom),
+                        style: StrokeStyle(lineWidth: 6, lineCap: .round)
+                    )
+                    .frame(width: 110, height: 110)
+                    .rotationEffect(.degrees(-90))
+                
+                // Exercise Icon (Floating)
+                if !exercises.isEmpty {
+                    Image(systemName: exercises[currentIndex].icon)
+                        .font(.system(size: 32, weight: .bold))
+                        .foregroundColor(.white)
+                        .offset(y: -50)
+                        .shadow(color: .blue.opacity(0.5), radius: 10)
+                }
+                
+                // Massive Timer
+                VStack(spacing: -4) {
+                    Text("\(remainingTime)")
+                        .font(DesignSystem.massiveMetric)
+                        .foregroundColor(.white)
+                        .contentTransition(.numericText())
+                    
+                    Text("SECONDS")
+                        .font(DesignSystem.captionText)
+                        .fontWeight(.black)
+                        .foregroundColor(.white.opacity(0.4))
+                }
+            }
+            .padding(.top, 20)
             
-            // Exercise Details - More compact typography
-            Text(routineType.exercises[currentIndex].name)
-                .font(.footnote)
-                .fontWeight(.semibold)
-            
-            Text(routineType.exercises[currentIndex].description)
-                .font(.caption)
-                .foregroundColor(.secondary)
-                .multilineTextAlignment(.center)
-                .lineLimit(3) // Prevent text overflow
-            
-            // Timer - Massive ADA Typography
-            if isInProgress {
-                Text("\(remainingTime)")
-                    .font(.system(size: 60, weight: .heavy, design: .rounded))
-                    .contentTransition(.numericText())
-                    .foregroundColor(.blue)
-                    .scaleEffect(isBreathing ? 1.1 : 0.95)
-                    .onAppear {
-                        withAnimation(.easeInOut(duration: 2.0).repeatForever(autoreverses: true)) {
-                            isBreathing = true
-                        }
-                    }
-                    .onDisappear {
-                        isBreathing = false
-                    }
+            // Info Section
+            if !exercises.isEmpty {
+                VStack(spacing: 4) {
+                    Text(exercises[currentIndex].name.uppercased())
+                        .font(DesignSystem.sectionHeader)
+                        .foregroundColor(.white)
+                    
+                    Text(exercises[currentIndex].description)
+                        .font(.system(size: 10, weight: .medium))
+                        .foregroundColor(.white.opacity(0.5))
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal, 10)
+                }
             }
         }
-        .padding(8) // Reduced padding
-        .background(Color.blue.opacity(0.1))
-        .cornerRadius(10) // Slightly smaller corner radius
-        .frame(maxWidth: .infinity) // Ensure full width on watch
-        .accessibilityElement(children: .ignore)
-        .accessibilityLabel(routineType.exercises[currentIndex].name)
-        .accessibilityValue(isInProgress ? "\(remainingTime) seconds remaining. \(routineType.exercises[currentIndex].description)" : routineType.exercises[currentIndex].description)
+        .frame(maxWidth: .infinity)
+        .onAppear {
+            withAnimation(.easeInOut(duration: 2).repeatForever(autoreverses: true)) {
+                animationPhase = 1
+            }
+        }
+    }
+}
+
+struct CurrentExerciseView_Previews: PreviewProvider {
+    static var previews: some View {
+        ZStack {
+            Color.black.edgesIgnoringSafeArea(.all)
+            CurrentExerciseView(
+                exercises: StretchRoutine.beginner.exercises,
+                currentIndex: 0,
+                isInProgress: true,
+                remainingTime: 25,
+                backgroundColor: .clear,
+                primaryTextColor: .white,
+                secondaryTextColor: .gray,
+                accentColor: .blue,
+                progressColor: .blue
+            )
+        }
     }
 }

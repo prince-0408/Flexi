@@ -8,75 +8,118 @@ import SwiftUI
 
 struct StretchControlButtonsView: View {
     @Binding var isInProgress: Bool
-       @Binding var currentExerciseIndex: Int
-       let routine: StretchRoutine
-       @Binding var remainingTime: Int
-       let backgroundColor: Color?
-       let accentColor: Color
-       let primaryTextColor: Color
+    @Binding var currentExerciseIndex: Int
+    let exercises: [StretchExercise]
+    @Binding var remainingTime: Int
+    let backgroundColor: Color?
+    let accentColor: Color
+    let primaryTextColor: Color
     
     var body: some View {
-        HStack(spacing: 20) {
-            Button(action: {
-                currentExerciseIndex = (currentExerciseIndex - 1 + routine.exercises.count) % routine.exercises.count
-                remainingTime = routine.exercises[currentExerciseIndex].duration
-            }) {
-                Image(systemName: "backward.fill")
-                    .foregroundColor(.blue)
-                    .padding(10)
-                    .background(.ultraThinMaterial)
-                    .clipShape(Circle())
-            }
-            .buttonStyle(PlainButtonStyle())
-            .disabled(isInProgress)
-            
-            Button(action: {
-                isInProgress.toggle()
-                if isInProgress {
-                    remainingTime = routine.exercises[currentExerciseIndex].duration
+        HStack(spacing: 28) {
+            // Previous Button
+            ControlOrb(icon: "backward.fill", size: 38) {
+                if currentExerciseIndex > 0 {
+                    currentExerciseIndex -= 1
+                    remainingTime = exercises[currentExerciseIndex].duration
+                    HapticManager.shared.playImpact()
                 }
-            }) {
-                Image(systemName: isInProgress ? "pause.fill" : "play.fill")
-                    .font(.title2)
-                    .foregroundColor(.blue)
-                    .padding(15)
-                    .background(.ultraThinMaterial)
-                    .clipShape(Circle())
-                    .overlay(Circle().stroke(Color.blue.opacity(0.3), lineWidth: 1))
             }
-            .buttonStyle(PlainButtonStyle())
-            .applyPrimaryHandGesture()
             
-            Button(action: {
-                currentExerciseIndex = (currentExerciseIndex + 1) % routine.exercises.count
-                remainingTime = routine.exercises[currentExerciseIndex].duration
-            }) {
-                Image(systemName: "forward.fill")
-                    .foregroundColor(.blue)
-                    .padding(10)
-                    .background(.ultraThinMaterial)
-                    .clipShape(Circle())
+            // Play/Pause Button
+            ControlOrb(icon: isInProgress ? "pause.fill" : "play.fill", size: 56, isPrimary: true) {
+                withAnimation(.spring(response: 0.3, dampingFraction: 0.6)) {
+                    isInProgress.toggle()
+                    if isInProgress {
+                        HapticManager.shared.playStart()
+                    } else {
+                        HapticManager.shared.playStop()
+                    }
+                }
             }
-            .buttonStyle(PlainButtonStyle())
-            .disabled(isInProgress)
+            
+            // Next Button
+            ControlOrb(icon: "forward.fill", size: 38) {
+                if currentExerciseIndex < exercises.count - 1 {
+                    currentExerciseIndex += 1
+                    remainingTime = exercises[currentExerciseIndex].duration
+                    HapticManager.shared.playImpact()
+                }
+            }
         }
+        .padding(.vertical, 8)
     }
 }
 
-@available(watchOS 11.0, *)
-struct PrimaryGestureModifier: ViewModifier {
-    func body(content: Content) -> some View {
-        content.handGestureShortcut(.primaryAction)
+struct ControlOrb: View {
+    let icon: String
+    let size: CGFloat
+    var isPrimary: Bool = false
+    let action: () -> Void
+    
+    @State private var isPressed = false
+    
+    var body: some View {
+        Button(action: action) {
+            ZStack {
+                // The Orb Base - FIXED: No more square backgrounds
+                Circle()
+                    .fill(.white.opacity(isPrimary ? 0.15 : 0.08))
+                    .background(.ultraThinMaterial, in: Circle())
+                    .overlay(
+                        Circle()
+                            .stroke(
+                                LinearGradient(
+                                    gradient: Gradient(colors: [.white.opacity(0.5), .clear]),
+                                    startPoint: .topLeading,
+                                    endPoint: .bottomTrailing
+                                ),
+                                lineWidth: 1
+                            )
+                    )
+                
+                // Pure Luminous Center Glow (only for primary)
+                if isPrimary {
+                    Circle()
+                        .fill(RadialGradient(
+                            gradient: Gradient(colors: [.blue.opacity(0.2), .clear]),
+                            center: .center,
+                            startRadius: 0,
+                            endRadius: size / 2
+                        ))
+                        .blur(radius: 4)
+                }
+                
+                // Icon - Cleaner White
+                Image(systemName: icon)
+                    .font(.system(size: size * (icon.contains("play") ? 0.45 : 0.4), weight: .black))
+                    .foregroundColor(.white)
+            }
+            .frame(width: size, height: size)
+            .scaleEffect(isPressed ? 0.85 : 1.0)
+        }
+        .buttonStyle(PlainButtonStyle())
+        .simultaneousGesture(
+            DragGesture(minimumDistance: 0)
+                .onChanged { _ in isPressed = true }
+                .onEnded { _ in isPressed = false }
+        )
     }
 }
 
-extension View {
-    @ViewBuilder
-    func applyPrimaryHandGesture() -> some View {
-        if #available(watchOS 11.0, *) {
-            self.modifier(PrimaryGestureModifier())
-        } else {
-            self
+struct StretchControlButtonsView_Previews: PreviewProvider {
+    static var previews: some View {
+        ZStack {
+            Color.black.edgesIgnoringSafeArea(.all)
+            StretchControlButtonsView(
+                isInProgress: .constant(true),
+                currentExerciseIndex: .constant(0),
+                exercises: StretchRoutine.beginner.exercises,
+                remainingTime: .constant(30),
+                backgroundColor: .clear,
+                accentColor: .blue,
+                primaryTextColor: .white
+            )
         }
     }
 }
