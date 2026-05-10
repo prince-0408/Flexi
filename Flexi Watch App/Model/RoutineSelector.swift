@@ -11,6 +11,7 @@ enum StretchRoutine: String, CaseIterable {
     case beginner = "Beginner"
     case intermediate = "Intermediate"
     case advanced = "Advanced"
+    case seated = "Seated"
  
         var exercises: [StretchExercise] {
                 switch self {
@@ -69,6 +70,27 @@ enum StretchRoutine: String, CaseIterable {
                             description: "Gentle full-body stretch",
                             duration: 45,
                             icon: "person.crop.circle"
+                        ),
+                        StretchExercise(
+                            name: "Neck Release",
+                            description: "Slow neck rotations",
+                            duration: 30,
+                            icon: "figure.roll"
+                        )
+                    ]
+                case .seated:
+                    return [
+                        StretchExercise(
+                            name: "Seated Torso Twist",
+                            description: "Gently twist your torso",
+                            duration: 45,
+                            icon: "figure.flexibility"
+                        ),
+                        StretchExercise(
+                            name: "Shoulder Shrugs",
+                            description: "Lift and lower shoulders",
+                            duration: 30,
+                            icon: "figure.arms.open"
                         ),
                         StretchExercise(
                             name: "Neck Release",

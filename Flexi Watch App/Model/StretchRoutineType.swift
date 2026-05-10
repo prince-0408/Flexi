@@ -10,5 +10,5 @@ enum StretchRoutineType: String {
     case beginner
     case intermediate
     case advanced
-    // other cases
+    case seated
 }

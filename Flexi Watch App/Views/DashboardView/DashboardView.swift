@@ -27,17 +27,15 @@ struct DashboardView: View {
     }
     
     var body: some View {
-        NavigationView {
-            GeometryReader { geometry in
-                ZStack {
-                    CustomBackgroundView(geometry: geometry, colorScheme: colorScheme)
-                        .edgesIgnoringSafeArea(.all)
-                    
-                    content
-                }
-                .navigationTitle("Today")
-                .navigationBarTitleDisplayMode(.inline)
+        NavigationStack {
+            ZStack {
+                CustomBackgroundView(geometry: GeometryProxy.self as? GeometryProxy, colorScheme: colorScheme) // Actually GeometryReader isn't strictly needed if we just use Color.black
+                    .edgesIgnoringSafeArea(.all)
+                
+                content
             }
+            .navigationTitle("Today")
+            .navigationBarTitleDisplayMode(.inline)
         }
     }
     
@@ -64,7 +62,6 @@ struct DashboardView: View {
                 .frame(height: 68)
                 .background(sectionBackground)
                 .cornerRadius(12)
-                .shadow(color: .black.opacity(0.1), radius: 3, x: 0, y: 2)
         }
     }
     
@@ -78,7 +75,6 @@ struct DashboardView: View {
                 .frame(height: 150)
                 .background(sectionBackground)
                 .cornerRadius(12)
-                .shadow(color: .black.opacity(0.1), radius: 3, x: 0, y: 2)
         }
     }
     
@@ -92,7 +88,6 @@ struct DashboardView: View {
                 .frame(height: 150)
                 .background(sectionBackground)
                 .cornerRadius(12)
-                .shadow(color: .black.opacity(0.1), radius: 3, x: 0, y: 2)
         }
     }
     
@@ -105,61 +100,22 @@ struct DashboardView: View {
             PostureHealthView()
                 .background(sectionBackground)
                 .cornerRadius(12)
-                .shadow(color: .black.opacity(0.1), radius: 3, x: 0, y: 2)
         }
     }
     
     // Reusable background for sections
     private var sectionBackground: some View {
         RoundedRectangle(cornerRadius: 12)
-            .fill(colorScheme == .dark
-                  ? Color.white.opacity(0.05)
-                  : Color.black.opacity(0.03))
+            .fill(Color.white.opacity(0.1))
     }
 }
 
-// CustomBackgroundView remains the same
 struct CustomBackgroundView: View {
-    let geometry: GeometryProxy
+    var geometry: GeometryProxy?
     let colorScheme: ColorScheme
     
     var body: some View {
-        ZStack {
-            // Gradient Background
-            LinearGradient(
-                gradient: Gradient(colors: colorScheme == .dark
-                                   ? [Color.black, Color(red: 0.1, green: 0.1, blue: 0.15)]
-                                   : [Color(red: 0.95, green: 0.95, blue: 0.97), Color.white]),
-                startPoint: .top,
-                endPoint: .bottom
-            )
-            
-            // Subtle Geometric Pattern
-            GeometryBackground(geometry: geometry, colorScheme: colorScheme)
-        }
-    }
-    
-    // Geometric Background Pattern
-    struct GeometryBackground: View {
-        let geometry: GeometryProxy
-        let colorScheme: ColorScheme
-        
-        var body: some View {
-            ZStack {
-                // Subtle geometric shapes
-                ForEach(0..<10) { index in
-                    Circle()
-                        .fill(colorScheme == .dark
-                              ? Color.white.opacity(0.05)
-                              : Color.black.opacity(0.03))
-                        .frame(width: CGFloat.random(in: 50...200),
-                               height: CGFloat.random(in: 50...200))
-                        .position(x: CGFloat.random(in: 0...geometry.size.width),
-                                  y: CGFloat.random(in: 0...geometry.size.height))
-                        .blur(radius: 10)
-                }
-            }
-        }
+        Color.black
     }
 }
 

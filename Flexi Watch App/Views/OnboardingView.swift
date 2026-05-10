@@ -15,15 +15,15 @@ struct OnboardingView: View {
     @Environment(\.colorScheme) private var colorScheme
     
     private var primaryTextColor: Color {
-        colorScheme == .dark ? .white : .black.opacity(0.8)
+        .white
     }
     
     private var secondaryTextColor: Color {
-        colorScheme == .dark ? .white.opacity(0.7) : .black.opacity(0.6)
+        Color.white.opacity(0.7)
     }
     
     private var backgroundColor: Color {
-        colorScheme == .dark ? Color(red: 0.11, green: 0.11, blue: 0.12) : Color(red: 0.95, green: 0.95, blue: 0.97)
+        .black
     }
     
     private func playHapticFeedback() {

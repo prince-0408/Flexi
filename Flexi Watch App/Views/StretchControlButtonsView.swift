@@ -40,6 +40,7 @@ struct StretchControlButtonsView: View {
                     .background(Color.blue)
                     .clipShape(Circle())
             }
+            .applyPrimaryHandGesture()
             
             // Next Exercise Button
             Button(action: {
@@ -50,6 +51,24 @@ struct StretchControlButtonsView: View {
                     .foregroundColor(.blue)
             }
             .disabled(isInProgress)
+        }
+    }
+}
+
+@available(watchOS 11.0, *)
+struct PrimaryGestureModifier: ViewModifier {
+    func body(content: Content) -> some View {
+        content.handGestureShortcut(.primaryAction)
+    }
+}
+
+extension View {
+    @ViewBuilder
+    func applyPrimaryHandGesture() -> some View {
+        if #available(watchOS 11.0, *) {
+            self.modifier(PrimaryGestureModifier())
+        } else {
+            self
         }
     }
 }

@@ -4,7 +4,6 @@
 //
 //  Created by Prince Yadav on 03/12/24.
 //
-import SwiftUICore
 import SwiftUI
 
 extension Color {

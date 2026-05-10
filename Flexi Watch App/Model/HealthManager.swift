@@ -33,9 +33,40 @@ class HealthManager: ObservableObject {
             HKObjectType.categoryType(forIdentifier: .appleStandHour)!
         ]
         
-        healthStore.requestAuthorization(toShare: nil, read: typesToRead) { success, error in
+        let typesToShare: Set<HKSampleType> = [
+            HKObjectType.workoutType(),
+            HKObjectType.categoryType(forIdentifier: .mindfulSession)!
+        ]
+        
+        healthStore.requestAuthorization(toShare: typesToShare, read: typesToRead) { success, error in
             if success {
                 self.fetchDailyActivityStats()
+            }
+        }
+    }
+    
+    func saveStretchWorkout(duration: TimeInterval) {
+        guard HKHealthStore.isHealthDataAvailable() else { return }
+        
+        let configuration = HKWorkoutConfiguration()
+        configuration.activityType = .flexibility
+        configuration.locationType = .unknown
+        
+        let builder = HKWorkoutBuilder(healthStore: healthStore, configuration: configuration, device: .local())
+        
+        builder.beginCollection(withStart: Date().addingTimeInterval(-duration)) { success, error in
+            guard success else { return }
+            
+            builder.endCollection(withEnd: Date()) { success, error in
+                guard success else { return }
+                
+                builder.finishWorkout { workout, error in
+                    if let error = error {
+                        print("Error saving flexibility workout: \(error.localizedDescription)")
+                    } else {
+                        print("Successfully saved flexibility workout")
+                    }
+                }
             }
         }
     }

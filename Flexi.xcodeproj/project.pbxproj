@@ -457,6 +457,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = Flexi;
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "Track your activity and fitness progress";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "Flexi needs access to save your stretching workouts and mindful sessions.";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKWatchOnly = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -487,6 +488,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = Flexi;
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "Track your activity and fitness progress";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "Flexi needs access to save your stretching workouts and mindful sessions.";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKWatchOnly = YES;
 				LD_RUNPATH_SEARCH_PATHS = (

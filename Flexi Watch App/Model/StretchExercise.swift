@@ -83,6 +83,27 @@ extension StretchRoutineType {
                     icon: "figure.roll"
                 )
             ]
+        case .seated:
+            return [
+                StretchExercise(
+                    name: "Seated Torso Twist",
+                    description: "Gently twist your torso",
+                    duration: 45,
+                    icon: "figure.flexibility"
+                ),
+                StretchExercise(
+                    name: "Shoulder Shrugs",
+                    description: "Lift and lower shoulders",
+                    duration: 30,
+                    icon: "figure.arms.open"
+                ),
+                StretchExercise(
+                    name: "Neck Release",
+                    description: "Slow neck rotations",
+                    duration: 30,
+                    icon: "figure.roll"
+                )
+            ]
         }
     }
 }

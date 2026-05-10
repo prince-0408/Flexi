@@ -50,5 +50,8 @@ struct CurrentExerciseView: View {
         .background(Color.blue.opacity(0.1))
         .cornerRadius(10) // Slightly smaller corner radius
         .frame(maxWidth: .infinity) // Ensure full width on watch
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(routineType.exercises[currentIndex].name)
+        .accessibilityValue(isInProgress ? "\(remainingTime) seconds remaining. \(routineType.exercises[currentIndex].description)" : routineType.exercises[currentIndex].description)
     }
 }

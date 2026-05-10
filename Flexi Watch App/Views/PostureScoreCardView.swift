@@ -214,6 +214,9 @@ struct PostureScoreCardView: View {
             }
         }
         .frame(width: calculateCircleSize(), height: calculateCircleSize())
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel("Posture score")
+        .accessibilityValue("\(Int(score)) out of 100, \(scoreDescription)")
     }
 }
 

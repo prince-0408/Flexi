@@ -90,6 +90,7 @@ struct RoutineCard: View {
         case .beginner: return .green
         case .intermediate: return .blue
         case .advanced: return .red
+        case .seated: return .purple
         }
     }
     
@@ -98,6 +99,7 @@ struct RoutineCard: View {
         case .beginner: return "figure.walk.circle.fill"
         case .intermediate: return "figure.run.circle.fill"
         case .advanced: return "figure.skiing.downhill.circle.fill"
+        case .seated: return "figure.cooldown"
         }
     }
 }
