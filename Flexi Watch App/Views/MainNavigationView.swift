@@ -12,20 +12,29 @@ struct MainNavigationView: View {
     @State private var selectedTab = 0
     
     var body: some View {
-        TabView(selection: $selectedTab) {
-            DashboardView()
-                .tag(0)
+        ZStack {
+            if #available(watchOS 11.0, *) {
+                LiquidBackground()
+                    .ignoresSafeArea()
+            } else {
+                Color.black.ignoresSafeArea()
+            }
             
-            PostureTrackingView()
-                .tag(1)
-            
-            StretchRoutineView(selectedRoutine: .advanced)
-                .tag(2)
-            
-            SettingsView()
-                .tag(3)
+            TabView(selection: $selectedTab) {
+                DashboardView()
+                    .tag(0)
+                
+                PostureTrackingView()
+                    .tag(1)
+                
+                StretchRoutineView(selectedRoutine: .advanced)
+                    .tag(2)
+                
+                SettingsView()
+                    .tag(3)
+            }
+            .tabViewStyle(.verticalPage)
         }
-        .tabViewStyle(.verticalPage)
     }
 }
 

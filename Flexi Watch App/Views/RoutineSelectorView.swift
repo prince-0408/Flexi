@@ -39,16 +39,9 @@ struct RoutineSelectorView: View {
                 }
                 .padding(.horizontal, 5)
             }
-            .padding()
-            .background(
-                Color.secondary.opacity(0.1)
-                    .cornerRadius(15)
-            )
-            .shadow(color: .black.opacity(0.1), radius: 5, x: 0, y: 3)
         }
     }
 }
-
 struct RoutineCard: View {
     let routine: StretchRoutine
     let isSelected: Bool
@@ -80,7 +73,13 @@ struct RoutineCard: View {
         .padding(8)
         .background(
             RoundedRectangle(cornerRadius: 10)
-                .stroke(isSelected ? routineColor : Color.gray.opacity(0.3), lineWidth: 1.5)
+                .fill(isSelected ? routineColor.opacity(0.1) : Color.clear)
+                .background(.ultraThinMaterial)
+                .clipShape(RoundedRectangle(cornerRadius: 10))
+        )
+        .overlay(
+            RoundedRectangle(cornerRadius: 10)
+                .stroke(isSelected ? routineColor : Color.clear, lineWidth: 1.5)
         )
         .onTapGesture(perform: action)
     }

@@ -64,7 +64,7 @@ struct FeaturesCarouselView: View {
                 )
                 .padding(.bottom, 90)
             }
-            .background(backgroundColor)
+            .background(Color.clear)
         }
     }
     
@@ -110,11 +110,7 @@ struct FeatureCarouselCard: View {
         GeometryReader { geometry in
             VStack(spacing: 0) {
                 ZStack {
-                    CustomBackgroundView(
-                        geometry: geometry,
-                        colorScheme: colorScheme
-                    )
-                    .edgesIgnoringSafeArea(.all)
+                    Color.clear
                     
                     VStack(spacing: 0) {
                         // Title Section
@@ -153,10 +149,8 @@ struct FeatureCarouselCard: View {
                         }
                         .padding()
                     }
-                    .background(
-                        RoundedRectangle(cornerRadius: 12)
-                            .fill(Color.gray.opacity(0.05))
-                    )
+                    .background(Color.clear)
+                    .background(.ultraThinMaterial)
                     .cornerRadius(12)
                     .overlay(
                         RoundedRectangle(cornerRadius: 16)

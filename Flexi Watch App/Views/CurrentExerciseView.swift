@@ -16,7 +16,8 @@ struct CurrentExerciseView: View {
         let secondaryTextColor: Color
         let accentColor: Color
         let progressColor: Color
-    
+    @State private var isBreathing = false
+
     var body: some View {
         VStack(spacing: 10) {
             // Exercise Image - Reduced size for watch
@@ -37,13 +38,21 @@ struct CurrentExerciseView: View {
                 .multilineTextAlignment(.center)
                 .lineLimit(3) // Prevent text overflow
             
-            // Timer - More prominent for watch
+            // Timer - Massive ADA Typography
             if isInProgress {
                 Text("\(remainingTime)")
-                    .font(.title3)
-                    .fontWeight(.bold)
+                    .font(.system(size: 60, weight: .heavy, design: .rounded))
+                    .contentTransition(.numericText())
                     .foregroundColor(.blue)
-                    .monospacedDigit() // Prevents layout shifts
+                    .scaleEffect(isBreathing ? 1.1 : 0.95)
+                    .onAppear {
+                        withAnimation(.easeInOut(duration: 2.0).repeatForever(autoreverses: true)) {
+                            isBreathing = true
+                        }
+                    }
+                    .onDisappear {
+                        isBreathing = false
+                    }
             }
         }
         .padding(8) // Reduced padding

@@ -62,8 +62,7 @@ struct StretchRoutineView: View {
     var body: some View {
         ZStack {
             // Background Gradient
-            colorTheme.backgroundGradient
-                .edgesIgnoringSafeArea(.all)
+            Color.clear
             
             ScrollView {
                 VStack(spacing: 20) {
@@ -72,13 +71,9 @@ struct StretchRoutineView: View {
                         selectedRoutine: $selectedRoutine,
                         backgroundColor: .clear,
                         textColor: colorTheme.primaryTextColor
-                    )                   .background(colorTheme.cardBackgroundGradient)
-                    .cornerRadius(20)
-                    .shadow(color: colorTheme.shadowColor, radius: 10, x: 0, y: 5)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 20)
-                            .stroke(colorTheme.accentColor.opacity(0.3), lineWidth: 1)
                     )
+                    .background(.thinMaterial)
+                    .cornerRadius(20)
                     
                     // Current Exercise Display
                     CurrentExerciseView(
@@ -92,13 +87,8 @@ struct StretchRoutineView: View {
                         accentColor: colorTheme.accentColor,
                         progressColor: colorTheme.progressColor
                     )
-                    .background(colorTheme.cardBackgroundGradient)
+                    .background(.thinMaterial)
                     .cornerRadius(20)
-                    .shadow(color: colorTheme.shadowColor, radius: 10, x: 0, y: 5)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 20)
-                            .stroke(colorTheme.accentColor.opacity(0.3), lineWidth: 1)
-                    )
                     
                     // Control Buttons
                     StretchControlButtonsView(
@@ -110,13 +100,8 @@ struct StretchRoutineView: View {
                         accentColor: colorTheme.accentColor,
                         primaryTextColor: colorTheme.primaryTextColor
                     )
-                    .background(colorTheme.cardBackgroundGradient)
+                    .background(.thinMaterial)
                     .cornerRadius(20)
-                    .shadow(color: colorTheme.shadowColor, radius: 10, x: 0, y: 5)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 20)
-                            .stroke(colorTheme.accentColor.opacity(0.3), lineWidth: 1)
-                    )
                 }
                 .padding()
                 .navigationTitle("Stretch Routines")
@@ -192,3 +177,4 @@ extension LinearGradient {
             .environment(\.colorScheme, .dark)
     }
 }
+

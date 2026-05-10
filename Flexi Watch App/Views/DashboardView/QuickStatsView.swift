@@ -68,8 +68,7 @@ struct QuickStatsView: View {
     var body: some View {
         GeometryReader { geometry in
             ZStack {
-                CustomBackgroundView(geometry: geometry, colorScheme: colorScheme)
-                .edgesIgnoringSafeArea(.all)
+                Color.clear
 
                 content
             }
@@ -123,7 +122,8 @@ struct QuickStatsView: View {
                 .font(.system(size: watchSize.fontSize + 2, weight: .semibold))
             
             Text(value)
-                .font(.system(size: watchSize.fontSize, weight: .bold))
+                .font(.system(size: watchSize.fontSize + 4, weight: .heavy, design: .rounded))
+                .contentTransition(.numericText())
                 .foregroundColor(.primary)
             
             Text(title)
@@ -134,9 +134,9 @@ struct QuickStatsView: View {
         .padding(6)
         .background(
             RoundedRectangle(cornerRadius: 8)
-                .fill(colorScheme == .dark
-                      ? Color.white.opacity(0.05)
-                      : Color.black.opacity(0.05))
+                .fill(Color.clear)
+                .background(.ultraThinMaterial)
+                .clipShape(RoundedRectangle(cornerRadius: 8))
         )
         .cornerRadius(10)
     }

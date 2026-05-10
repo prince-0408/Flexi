@@ -24,7 +24,7 @@ struct PostureTrackingView: View {
     }
     
     private var cardBackgroundColor: Color {
-        Color.white.opacity(0.1)
+        Color.clear
     }
     
     private var primaryTextColor: Color {
@@ -43,8 +43,7 @@ struct PostureTrackingView: View {
         GeometryReader { geometry in
             ZStack {
                 // Custom Background View
-                CustomBackgroundView()
-                    .edgesIgnoringSafeArea(.all)
+                Color.clear
                 
                 ScrollView {
                     VStack(spacing: 20) {
@@ -64,20 +63,20 @@ struct PostureTrackingView: View {
                         
                         // Posture Score Card
                         PostureScoreCardView(score: postureAnalysis.currentPostureScore)
-                            .background(cardBackgroundColor)
+                            .background(.thinMaterial)
                             .cornerRadius(15)
                             .padding(.horizontal)
                         
                         // Posture Trend Chart
                         PostureTrendChartView(postureData: postureAnalysis.postureReadings)
-                            .background(cardBackgroundColor)
+                            .background(.thinMaterial)
                             .cornerRadius(15)
                             .padding(.horizontal)
                         
                         // Detailed Insights Section
                         if showDetailedAnalysis {
                             PostureInsightsView()  // No arguments
-                                .background(cardBackgroundColor)
+                                .background(.thinMaterial)
                                 .cornerRadius(15)
                                 .padding(.horizontal)
                                 .transition(.asymmetric(insertion: .scale, removal: .opacity))
@@ -109,12 +108,7 @@ struct PostureTrackingView: View {
         }
     }
     
-    // Custom Background View
-    struct CustomBackgroundView: View {
-        var body: some View {
-            Color.black
-        }
-    }
+    // Custom Background View removed as LiquidBackground is used globally
 }
     #Preview("Light Mode - Default") {
         NavigationView {

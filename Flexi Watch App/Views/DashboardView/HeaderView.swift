@@ -99,11 +99,7 @@ struct HeaderView: View {
                 .font(.system(size: watchSize.iconSize))
         }
         .padding(watchSize.padding)
-        .background(
-            backgroundColor
-                .cornerRadius(12)
-                .shadow(color: .black.opacity(0.1), radius: 5, x: 0, y: 2)
-        )
+        .background(Color.clear)
     }
     
     // Time of Day Icon
@@ -115,13 +111,6 @@ struct HeaderView: View {
         case 17..<22: return "sunset.fill"
         default: return "moon.fill"
         }
-    }
-    
-    // Background Color
-    private var backgroundColor: Color {
-        colorScheme == .dark
-        ? Color.white.opacity(0.05)
-        : Color.white
     }
 }
 

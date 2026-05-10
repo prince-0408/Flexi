@@ -55,7 +55,8 @@ struct ActivityLineChartView: View {
                 Spacer()
                 
                 Text("\(Int(lineData.last?.value ?? 0))%")
-                    .font(.subheadline)
+                    .font(.system(size: 16, weight: .bold, design: .rounded))
+                    .contentTransition(.numericText())
                     .foregroundColor(accentColor)
             }
             
@@ -87,7 +88,7 @@ struct ActivityLineChartView: View {
             .frame(height: 100)
         }
         .padding(10)
-        .background(cardBackground)
+        .background(Color.clear)
         .rotation3DEffect(
             Angle(degrees: isFlipped ? 180 : 0),
             axis: (x: 0.0, y: 1.0, z: 0.0)
@@ -107,7 +108,7 @@ struct ActivityLineChartView: View {
             DetailRow(icon: "arrow.down", title: "Lowest", value: "\(findLowest())%")
         }
         .padding(10)
-        .background(cardBackground)
+        .background(Color.clear)
         .rotation3DEffect(
             Angle(degrees: isFlipped ? 180 : 0),
             axis: (x: 0.0, y: 1.0, z: 0.0)
@@ -155,18 +156,6 @@ struct ActivityLineChartView: View {
         colorScheme == .dark
             ? Color(hex: "4ECDC4")
             : Color(hex: "2ECC71")
-    }
-    
-    private var cardBackground: some View {
-        RoundedRectangle(cornerRadius: 10)
-            .fill(backgroundColor)
-            .shadow(color: .black.opacity(0.05), radius: 2, x: 0, y: 1)
-    }
-    
-    private var backgroundColor: Color {
-        colorScheme == .dark
-            ? Color.white.opacity(0.05)
-            : Color.white
     }
 }
 

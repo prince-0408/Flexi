@@ -17,17 +17,19 @@ struct StretchControlButtonsView: View {
     
     var body: some View {
         HStack(spacing: 20) {
-            // Previous Exercise Button
             Button(action: {
                 currentExerciseIndex = (currentExerciseIndex - 1 + routine.exercises.count) % routine.exercises.count
                 remainingTime = routine.exercises[currentExerciseIndex].duration
             }) {
                 Image(systemName: "backward.fill")
                     .foregroundColor(.blue)
+                    .padding(10)
+                    .background(.ultraThinMaterial)
+                    .clipShape(Circle())
             }
+            .buttonStyle(PlainButtonStyle())
             .disabled(isInProgress)
             
-            // Start/Pause Button
             Button(action: {
                 isInProgress.toggle()
                 if isInProgress {
@@ -35,21 +37,27 @@ struct StretchControlButtonsView: View {
                 }
             }) {
                 Image(systemName: isInProgress ? "pause.fill" : "play.fill")
-                    .foregroundColor(.white)
-                    .padding()
-                    .background(Color.blue)
+                    .font(.title2)
+                    .foregroundColor(.blue)
+                    .padding(15)
+                    .background(.ultraThinMaterial)
                     .clipShape(Circle())
+                    .overlay(Circle().stroke(Color.blue.opacity(0.3), lineWidth: 1))
             }
+            .buttonStyle(PlainButtonStyle())
             .applyPrimaryHandGesture()
             
-            // Next Exercise Button
             Button(action: {
                 currentExerciseIndex = (currentExerciseIndex + 1) % routine.exercises.count
                 remainingTime = routine.exercises[currentExerciseIndex].duration
             }) {
                 Image(systemName: "forward.fill")
                     .foregroundColor(.blue)
+                    .padding(10)
+                    .background(.ultraThinMaterial)
+                    .clipShape(Circle())
             }
+            .buttonStyle(PlainButtonStyle())
             .disabled(isInProgress)
         }
     }

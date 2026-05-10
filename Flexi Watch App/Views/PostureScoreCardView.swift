@@ -76,12 +76,7 @@ struct PostureScoreCardView: View {
     var body: some View {
         GeometryReader { geometry in
             ZStack {
-                // Auto-adjusting background
-                RoundedRectangle(cornerRadius: geometry.size.width * 0.1)
-                    .fill(Color.gray.opacity(0.05))
-                    .shadow(color: .gray.opacity(0.2), radius: 10, x: 0, y: 5)
-                
-                // Content
+                // Content (Containerless Edge-to-Edge Design)
                 VStack(spacing: calculateSpacing(for: geometry.size.width)) {
                     // Header Section
                     headerSection
@@ -201,7 +196,8 @@ struct PostureScoreCardView: View {
             // Score Text
             VStack(spacing: 2) {
                 Text("\(Int(score))")
-                    .font(.system(size: calculateFontSize(baseSize: 28), weight: .bold))
+                    .font(.system(size: calculateFontSize(baseSize: 55), weight: .heavy, design: .rounded))
+                    .contentTransition(.numericText())
                     .foregroundStyle(scoreGradient)
                     .scaleEffect(animationProgress)
                     .animation(.spring(response: 0.5, dampingFraction: 0.6), value: animationProgress)

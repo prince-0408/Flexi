@@ -33,8 +33,12 @@ struct OnboardingView: View {
     var body: some View {
         GeometryReader { geometry in
             ZStack {
-                CustomBackgroundView(geometry: geometry, colorScheme: colorScheme)
-                    .edgesIgnoringSafeArea(.all)
+                if #available(watchOS 11.0, *) {
+                    LiquidBackground()
+                        .edgesIgnoringSafeArea(.all)
+                } else {
+                    Color.black.edgesIgnoringSafeArea(.all)
+                }
                 
                 if showMainApp {
                     MainNavigationView()
@@ -106,9 +110,9 @@ struct OnboardingView: View {
                 .padding(10)
                 .background(
                     Circle()
-                        .fill(colorScheme == .dark
-                            ? Color.white.opacity(0.1)
-                            : Color.black.opacity(0.05))
+                        .fill(Color.clear)
+                        .background(.ultraThinMaterial)
+                        .clipShape(Circle())
                         .shadow(color: .black.opacity(0.1), radius: 4, x: 0, y: 2)
                 )
         }
@@ -125,16 +129,13 @@ struct OnboardingView: View {
                 .padding(.vertical, 6)
                 .background(
                     RoundedRectangle(cornerRadius: 10)
-                        .fill(colorScheme == .dark
-                            ? Color.white.opacity(0.1)
-                            : Color.black.opacity(0.05))
+                        .fill(Color.clear)
+                        .background(.ultraThinMaterial)
+                        .clipShape(RoundedRectangle(cornerRadius: 10))
                 )
                 .overlay(
                     RoundedRectangle(cornerRadius: 10)
-                        .stroke(colorScheme == .dark
-                            ? Color.white.opacity(0.2)
-                            : Color.black.opacity(0.1),
-                            lineWidth: 0.5)
+                        .stroke(Color.white.opacity(0.2), lineWidth: 0.5)
                 )
         }
         .buttonStyle(PlainButtonStyle())
@@ -163,9 +164,9 @@ struct OnboardingView: View {
     
     private var sectionBackground: some View {
         RoundedRectangle(cornerRadius: 12)
-            .fill(colorScheme == .dark
-                  ? Color.white.opacity(0.05)
-                  : Color.black.opacity(0.03))
+            .fill(Color.clear)
+            .background(.ultraThinMaterial)
+            .clipShape(RoundedRectangle(cornerRadius: 12))
     }
     
     private var welcomePage: some View {
@@ -176,14 +177,8 @@ struct OnboardingView: View {
                 .foregroundColor(.white)
                 .padding()
                 .background(
-                    LinearGradient(
-                        gradient: Gradient(colors: [
-                            Color.blue.opacity(0.6),
-                            Color.purple.opacity(0.6)
-                        ]),
-                        startPoint: .topLeading,
-                        endPoint: .bottomTrailing
-                    )
+                    Color.clear
+                        .background(.ultraThinMaterial)
                 )
                 .clipShape(Circle())
                 .shadow(radius: 10)
@@ -251,7 +246,8 @@ struct OnboardingView: View {
                 .foregroundColor(isGranted ? .green : .yellow)
         }
         .padding()
-        .background(Color.white.opacity(0.05))
+        .background(Color.clear)
+        .background(.ultraThinMaterial)
         .cornerRadius(12)
     }
 

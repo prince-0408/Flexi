@@ -29,7 +29,7 @@ struct DashboardView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                CustomBackgroundView(geometry: GeometryProxy.self as? GeometryProxy, colorScheme: colorScheme) // Actually GeometryReader isn't strictly needed if we just use Color.black
+                Color.clear
                     .edgesIgnoringSafeArea(.all)
                 
                 content
@@ -106,18 +106,13 @@ struct DashboardView: View {
     // Reusable background for sections
     private var sectionBackground: some View {
         RoundedRectangle(cornerRadius: 12)
-            .fill(Color.white.opacity(0.1))
+            .fill(Color.clear)
+            .background(.ultraThinMaterial)
+            .clipShape(RoundedRectangle(cornerRadius: 12))
     }
 }
 
-struct CustomBackgroundView: View {
-    var geometry: GeometryProxy?
-    let colorScheme: ColorScheme
-    
-    var body: some View {
-        Color.black
-    }
-}
+
 
 struct DashboardView_Previews: PreviewProvider {
     static var previews: some View {

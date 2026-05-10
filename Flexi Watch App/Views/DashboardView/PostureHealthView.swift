@@ -118,34 +118,16 @@ struct PostureHealthView: View {
                 
                 HStack(alignment: .bottom, spacing: 4) {
                     Text("Great")
-                        .font(.system(size: 10))
+                        .font(.system(size: 16, weight: .bold))
                         .foregroundColor(.green)
                     
                     Text("Progress")
-                        .font(.system(size: 9))
+                        .font(.system(size: 12))
                         .foregroundColor(secondaryTextColor)
                 }
             }
         }
         .padding(12)
-        .background(
-            RoundedRectangle(cornerRadius: 12)
-                .fill(
-                    colorScheme == .dark
-                        ? Color.white.opacity(0.05)
-                        : Color.black.opacity(0.05)
-                )
-                .shadow(color: .black.opacity(0.1), radius: 2, x: 0, y: 1)
-        )
-        .overlay(
-            RoundedRectangle(cornerRadius: 12)
-                .stroke(
-                    colorScheme == .dark
-                        ? Color.white.opacity(0.1)
-                        : Color.black.opacity(0.1),
-                    lineWidth: 0.5
-                )
-        )
     }
 }
 
