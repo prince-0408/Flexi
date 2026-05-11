@@ -19,11 +19,19 @@ class HealthManager: ObservableObject {
     @Published var dailyActivityStats: ActivityStats?
     
     init() {
-        requestHealthKitAuthorization()
-        setupMotionTracking()
+        loadMockData()
     }
     
-    private func requestHealthKitAuthorization() {
+    private func loadMockData() {
+        self.dailyActivityStats = ActivityStats(
+            totalActiveMinutes: 45,
+            caloriesBurned: 450.5,
+            stepCount: 8420,
+            standHours: 10
+        )
+    }
+    
+    func requestHealthKitAuthorization() {
         guard HKHealthStore.isHealthDataAvailable() else { return }
         
         let typesToRead: Set<HKObjectType> = [

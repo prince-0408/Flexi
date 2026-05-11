@@ -27,15 +27,11 @@ struct DashboardView: View {
     }
     
     var body: some View {
-        NavigationStack {
-            ZStack {
-                Color.clear
-                    .edgesIgnoringSafeArea(.all)
-                
-                content
-            }
-            .navigationTitle("Today")
-            .navigationBarTitleDisplayMode(.inline)
+        ZStack {
+            Color.clear
+                .edgesIgnoringSafeArea(.all)
+            
+            content
         }
     }
     

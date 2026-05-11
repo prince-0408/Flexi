@@ -90,6 +90,7 @@ import Foundation
 import CoreMotion
 import UserNotifications
 import HealthKit
+import WidgetKit
 
 class PostureAnalysisModel: ObservableObject {
     // Core Motion and Notification Managers
@@ -117,7 +118,25 @@ class PostureAnalysisModel: ObservableObject {
     
     // Initialization
     init() {
-        requestPermissions()
+        loadMockReadings()
+    }
+    
+    private func loadMockReadings() {
+        // Generate 24 hours of mock data (points every 15 mins)
+        let now = Date()
+        for i in 0..<96 {
+            let timestamp = now.addingTimeInterval(TimeInterval(-i * 15 * 60))
+            let pitch = Double.random(in: -0.3...0.3)
+            let roll = Double.random(in: -0.2...0.2)
+            let reading = PostureReading(timestamp: timestamp, pitch: pitch, roll: roll, yaw: 0)
+            postureReadings.insert(reading, at: 0)
+        }
+        currentPostureScore = 88.5
+        overallPostureStatus = .good
+        postureStatusDescription = "Your posture has been consistent today. Great job!"
+        poorPostureDuration = "12 minutes"
+        averagePitch = 12.4
+        averageRoll = 4.2
     }
     
     // Comprehensive Permission Request
@@ -223,6 +242,12 @@ class PostureAnalysisModel: ObservableObject {
         
         let baseScore = 100 - ((pitchDeviation + rollDeviation) / 2)
         currentPostureScore = max(0, pow(baseScore, 1.5))
+        
+        // Sync with Widget App Group
+        if let sharedDefaults = UserDefaults(suiteName: "group.com.prince.Flexi") {
+            sharedDefaults.set(Int(currentPostureScore), forKey: "currentPostureScore")
+            WidgetCenter.shared.reloadAllTimelines()
+        }
         
         updatePostureStatus()
     }

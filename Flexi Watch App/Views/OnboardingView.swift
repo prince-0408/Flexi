@@ -2,304 +2,256 @@
 //  OnboardingView.swift
 //  Flexi
 //
-//  Created by Prince Yadav on 12/12/24.
+//  Created by Prince Yadav on 11/05/26.
 //
-
 import SwiftUI
-import HealthKit
-import UserNotifications
 
 struct OnboardingView: View {
     @State private var currentPage = 0
-    @State private var showMainApp = false
-    @Environment(\.colorScheme) private var colorScheme
+    @State private var isCalibrating = false
+    @State private var calibrationProgress: CGFloat = 0
+    @AppStorage("OnboardingCompleted") private var onboardingCompleted = false
     
-    private var primaryTextColor: Color {
-        .white
-    }
+    @EnvironmentObject var healthManager: HealthManager
+    @EnvironmentObject var motionManager: MotionManager
     
-    private var secondaryTextColor: Color {
-        Color.white.opacity(0.7)
-    }
+    private let totalPages = 4
     
-    private var backgroundColor: Color {
-        .black
-    }
-    
-    private func playHapticFeedback() {
-         WKInterfaceDevice.current().play(.click)
-    }
-
     var body: some View {
-        GeometryReader { geometry in
-            ZStack {
-                if #available(watchOS 11.0, *) {
-                    LiquidBackground()
-                        .edgesIgnoringSafeArea(.all)
-                } else {
-                    Color.black.edgesIgnoringSafeArea(.all)
-                }
-                
-                if showMainApp {
-                    MainNavigationView()
-                } else {
-                    onboardingContent
-                }
-            }
-            .edgesIgnoringSafeArea(.all)
-        }
-    }
-    
-    private func backgroundView() -> some View {
-        LinearGradient(
-            gradient: Gradient(colors: [
-                Color(red: 0.1, green: 0.1, blue: 0.2),
-                Color(red: 0.15, green: 0.15, blue: 0.25)
-            ]),
-            startPoint: .top,
-            endPoint: .bottom
-        )
-        .edgesIgnoringSafeArea(.all)
-    }
-    
-    
-    private var onboardingContent: some View {
         ZStack {
-            // Page Content
-            TabView(selection: $currentPage) {
-                welcomePage
-                    .tag(0)
-                
-                FeaturesCarouselView()
-                    .tag(1)
-                
-                permissionsPage
-                    .tag(2)
-                
-                finalSetupPage
-                    .tag(3)
-            }
-            .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
+            // Background Layer
+            LiquidBackground()
+                .edgesIgnoringSafeArea(.all)
+                .hueRotation(.degrees(Double(currentPage) * 45))
+                .animation(.interactiveSpring(response: 1.2, dampingFraction: 0.8), value: currentPage)
             
-            // Bottom Navigation Container
-            VStack {
+            // Content Layer
+            VStack(spacing: 0) {
+                // Header
+                Text("FLEXI")
+                    .font(.system(size: 10, weight: .black, design: .rounded))
+                    .kerning(4)
+                    .foregroundColor(.white.opacity(0.3))
+                    .padding(.top, 10)
+                
                 Spacer()
-                HStack(spacing: 15) {
-                    // Back Button (Bottom Left)
-                    if currentPage > 0 {
-                        backButton
+                
+                // Active Slide
+                ZStack {
+                    switch currentPage {
+                    case 0: WelcomeSlideView()
+                    case 1: CalibrationSlideView(progress: $calibrationProgress, isCalibrating: $isCalibrating)
+                    case 2: PermissionsSlideView()
+                    case 3: ReadySlideView(action: finishOnboarding)
+                    default: EmptyView()
+                    }
+                }
+                .transition(.asymmetric(
+                    insertion: .move(edge: .bottom).combined(with: .opacity).combined(with: .scale(scale: 0.9)),
+                    removal: .move(edge: .top).combined(with: .opacity).combined(with: .scale(scale: 1.1))
+                ))
+                .animation(.spring(response: 0.6, dampingFraction: 0.8), value: currentPage)
+                
+                Spacer()
+                
+                // Navigation Bar (Fixed Position)
+                HStack(spacing: 0) {
+                    // Back Area
+                    ZStack {
+                        if currentPage > 0 {
+                            OnboardingNavButton(icon: "arrow.up", action: goBack)
+                        }
+                    }
+                    .frame(width: 45)
+                    
+                    Spacer()
+                    
+                    // Center Indicators
+                    HStack(spacing: 6) {
+                        ForEach(0..<totalPages, id: \.self) { i in
+                            Circle()
+                                .fill(i == currentPage ? .white : .white.opacity(0.2))
+                                .frame(width: 5, height: 5)
+                                .scaleEffect(i == currentPage ? 1.4 : 1.0)
+                        }
                     }
                     
-                    // Page Indicator (Centered)
-                    pageIndicator()
+                    Spacer()
                     
-                    // Next/Finish Button (Bottom Right)
-                    nextButton
+                    // Next Area
+                    ZStack {
+                        if currentPage < totalPages - 1 {
+                            OnboardingNavButton(icon: "arrow.down", action: handleNext, isPrimary: true)
+                        }
+                    }
+                    .frame(width: 45)
                 }
-                .padding(.horizontal, 10)
-                .padding(.bottom, 10)
-            }
-        }
-    }
-
-    private var backButton: some View {
-        Button(action: previousPage) {
-            Image(systemName: "chevron.left")
-                .font(.headline)
-                .foregroundColor(secondaryTextColor)
-                .padding(10)
-                .background(
-                    Circle()
-                        .fill(Color.clear)
-                        .background(.ultraThinMaterial)
-                        .clipShape(Circle())
-                        .shadow(color: .black.opacity(0.1), radius: 4, x: 0, y: 2)
-                )
-        }
-        .buttonStyle(PlainButtonStyle())
-    }
-
-    private var nextButton: some View {
-        Button(action: nextPage) {
-            Text(currentPage == 3 ? "Finish" : "Next")
-                .font(.caption)
-                .fontWeight(.medium)
-                .foregroundColor(primaryTextColor)
-                .padding(.horizontal, 10)
-                .padding(.vertical, 6)
-                .background(
-                    RoundedRectangle(cornerRadius: 10)
-                        .fill(Color.clear)
-                        .background(.ultraThinMaterial)
-                        .clipShape(RoundedRectangle(cornerRadius: 10))
-                )
-                .overlay(
-                    RoundedRectangle(cornerRadius: 10)
-                        .stroke(Color.white.opacity(0.2), lineWidth: 0.5)
-                )
-        }
-        .buttonStyle(PlainButtonStyle())
-    }
-
-    private func pageIndicator() -> some View {
-        HStack(spacing: 6) {
-            ForEach(0..<4) { index in
-                Capsule()
-                    .fill(currentPage == index ? Color.white : Color.white.opacity(0.2))
-                    .frame(
-                        width: currentPage == index ? 20 : 8,
-                        height: 4
-                    )
-                    .animation(
-                        .interpolatingSpring(
-                            stiffness: 300,
-                            damping: 15
-                        ),
-                        value: currentPage
-                    )
-                    .transition(.scale)
+                .padding(.horizontal, 15)
+                .padding(.bottom, 22)
             }
         }
     }
     
-    private var sectionBackground: some View {
-        RoundedRectangle(cornerRadius: 12)
-            .fill(Color.clear)
-            .background(.ultraThinMaterial)
-            .clipShape(RoundedRectangle(cornerRadius: 12))
+    private func handleNext() {
+        HapticManager.shared.playSelection()
+        if currentPage == 1 {
+            if calibrationProgress < 1.0 {
+                isCalibrating = true
+                startCalibrationTimer()
+                motionManager.checkMotionPermission()
+            } else { nextPage() }
+        } else if currentPage == 2 {
+            healthManager.requestHealthKitAuthorization()
+            motionManager.setupHeadphoneMotion()
+            nextPage()
+        } else { nextPage() }
     }
     
-    private var welcomePage: some View {
-        VStack(spacing: 15) {
-            Image(systemName: "figure.walk.motion")
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .foregroundColor(.white)
-                .padding()
-                .background(
-                    Color.clear
-                        .background(.ultraThinMaterial)
-                )
-                .clipShape(Circle())
-                .shadow(radius: 10)
-            
-            Text("Flexi")
-                .font(.title2)
-                .fontWeight(.bold)
-                .foregroundColor(primaryTextColor)
-            
-            Text("Your Wellness Companion")
-                .font(.caption)
-                .foregroundColor(secondaryTextColor)
-        }
-        .padding()
-    }
-
-    
-
-    private var permissionsPage: some View {
-        ScrollView {
-            VStack(spacing: 15) {
-                Text("Permissions")
-                    .font(.headline)
-                    .foregroundColor(primaryTextColor)
-                
-                VStack(spacing: 12) {
-                    permissionRow(
-                        icon: "figure.walk.motion",
-                        title: "Motion Access",
-                        isGranted: true
-                    )
-                    
-                    permissionRow(
-                        icon: "heart.text.square.fill",
-                        title: "Health Data",
-                        isGranted: false
-                    )
-                    
-                    permissionRow(
-                        icon: "bell.badge.fill",
-                        title: "Notifications",
-                        isGranted: false
-                    )
-                }
-                .padding()
-            }
-        }
-    }
-
-    private func permissionRow(icon: String, title: String, isGranted: Bool) -> some View {
-        HStack(spacing: 15) {
-            Image(systemName: icon)
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(width: 30, height: 30)
-                .foregroundColor(isGranted ? .green : .white.opacity(0.5))
-            
-            Text(title)
-                .font(.headline)
-                .foregroundColor(primaryTextColor)
-            
-            Spacer()
-            
-            Image(systemName: isGranted ? "checkmark.circle.fill" : "exclamationmark.circle.fill")
-                .foregroundColor(isGranted ? .green : .yellow)
-        }
-        .padding()
-        .background(Color.clear)
-        .background(.ultraThinMaterial)
-        .cornerRadius(12)
-    }
-
-    private var finalSetupPage: some View {
-        VStack(spacing: 20) {
-            Image(systemName: "checkmark.circle.fill")
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .foregroundColor(.green)
-            
-            Text("All Set!")
-                .font(.title2)
-                .fontWeight(.bold)
-                .foregroundColor(primaryTextColor)
-            
-            Text("Flexi is ready to enhance your wellness journey")
-                .font(.caption)
-                .foregroundColor(secondaryTextColor)
-                .multilineTextAlignment(.center)
-        }
-        .padding()
-    }
-    private func previousPage() {
-        playHapticFeedback()
-        withAnimation {
-            currentPage = max(0, currentPage - 1)
-        }
+    private func goBack() {
+        HapticManager.shared.playSelection()
+        withAnimation { if currentPage > 0 { currentPage -= 1 } }
     }
     
     private func nextPage() {
-        playHapticFeedback()
-        withAnimation {
-            if currentPage < 3 {
-                 currentPage += 1
-            } else {
-                completeOnboarding()
+        withAnimation { if currentPage < totalPages - 1 { currentPage += 1 } }
+    }
+    
+    private func finishOnboarding() {
+        HapticManager.shared.playSuccess()
+        withAnimation { onboardingCompleted = true }
+    }
+    
+    private func startCalibrationTimer() {
+        Timer.scheduledTimer(withTimeInterval: 0.05, repeats: true) { timer in
+            calibrationProgress += 0.02
+            if calibrationProgress >= 1.0 {
+                timer.invalidate()
+                isCalibrating = false
+                HapticManager.shared.playSuccess()
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) { nextPage() }
             }
         }
     }
+}
+
+struct OnboardingNavButton: View {
+    let icon: String
+    let action: () -> Void
+    var isPrimary: Bool = false
     
-    private func completeOnboarding() {
-        UserDefaults.standard.set(true, forKey: "OnboardingCompleted")
-        showMainApp = true
+    var body: some View {
+        Button(action: action) {
+            ZStack {
+                Circle()
+                    .fill(isPrimary ? .white : .white.opacity(0.15))
+                
+                Image(systemName: icon)
+                    .font(.system(size: 14, weight: .bold))
+                    .foregroundColor(isPrimary ? .black : .white)
+            }
+            .frame(width: 40, height: 40)
+            .shadow(color: isPrimary ? .white.opacity(0.2) : .clear, radius: 8)
+        }
+        .buttonStyle(PlainButtonStyle())
     }
 }
 
-struct OnboardingView_Previews: PreviewProvider {
-    static var previews: some View {
-        OnboardingView()
-            .colorScheme(.dark)
-        
-        OnboardingView()
-            .colorScheme(.light)
+struct WelcomeSlideView: View {
+    var body: some View {
+        VStack(spacing: 12) {
+            Image(systemName: "figure.walk.motion")
+                .font(.system(size: 45, weight: .thin))
+                .foregroundStyle(.blue.gradient)
+            
+            Text("WELCOME")
+                .font(DesignSystem.sectionHeader)
+            
+            Text("Fluid, strong, resilient.")
+                .font(DesignSystem.bodyText)
+                .foregroundColor(.white.opacity(0.6))
+        }
+    }
+}
+
+struct CalibrationSlideView: View {
+    @Binding var progress: CGFloat
+    @Binding var isCalibrating: Bool
+    
+    var body: some View {
+        VStack(spacing: 12) {
+            Text("CALIBRATION")
+                .font(DesignSystem.sectionHeader)
+            
+            ZStack {
+                Circle().stroke(Color.white.opacity(0.05), lineWidth: 8).frame(width: 90, height: 90)
+                Circle().trim(from: 0, to: progress).stroke(AngularGradient(colors: [.blue, .cyan, .blue], center: .center), style: StrokeStyle(lineWidth: 8, lineCap: .round)).frame(width: 90, height: 90).rotationEffect(.degrees(-90)).shadow(color: .blue.opacity(0.3), radius: 8)
+                Image(systemName: progress >= 1.0 ? "checkmark" : "arrow.up").font(.title3.bold()).foregroundColor(progress >= 1.0 ? .green : .white)
+            }
+            Text(isCalibrating ? "ANALYZING..." : (progress >= 1.0 ? "DONE" : "Tap down to start."))
+                .font(.system(size: 8, weight: .black)).foregroundColor(.white.opacity(0.4))
+        }
+    }
+}
+
+struct PermissionsSlideView: View {
+    var body: some View {
+        VStack(spacing: 12) {
+            Text("ECOSYSTEM")
+                .font(DesignSystem.sectionHeader)
+            
+            VStack(spacing: 6) {
+                CompactPermissionRow(icon: "heart.fill", title: "Health", color: .red)
+                CompactPermissionRow(icon: "headphones", title: "AirPods", color: .blue)
+            }
+            .padding(.horizontal, 10)
+        }
+    }
+}
+
+struct CompactPermissionRow: View {
+    let icon: String
+    let title: String
+    let color: Color
+    
+    var body: some View {
+        HStack(spacing: 10) {
+            Image(systemName: icon)
+                .font(.system(size: 12))
+                .foregroundColor(color)
+                .frame(width: 22, height: 22)
+                .background(color.opacity(0.1), in: Circle())
+            
+            Text(title)
+                .font(.system(size: 12, weight: .semibold, design: .rounded))
+            
+            Spacer()
+            
+            Circle()
+                .fill(.white.opacity(0.1))
+                .frame(width: 14, height: 14)
+                .overlay(Image(systemName: "checkmark").font(.system(size: 7, weight: .black)))
+        }
+        .padding(8)
+        .glassyCard()
+    }
+}
+
+struct ReadySlideView: View {
+    let action: () -> Void
+    var body: some View {
+        VStack(spacing: 20) {
+            Text("YOU ARE READY")
+                .font(DesignSystem.sectionHeader)
+            
+            Button(action: action) {
+                Text("BEGIN")
+                    .font(.system(size: 14, weight: .black))
+                    .foregroundColor(.black)
+                    .padding(.horizontal, 40)
+                    .padding(.vertical, 14)
+                    .background(Color.white, in: Capsule())
+            }
+            .buttonStyle(PlainButtonStyle())
+        }
     }
 }

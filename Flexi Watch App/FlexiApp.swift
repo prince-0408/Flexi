@@ -13,12 +13,19 @@ import CoreMotion
 struct FlexiApp: App {
     @StateObject private var healthManager = HealthManager()
     @StateObject private var motionManager = MotionManager()
+    @AppStorage("OnboardingCompleted") private var onboardingCompleted = false
     
     var body: some Scene {
         WindowGroup {
-            MainNavigationView()
-                .environmentObject(healthManager)
-                .environmentObject(motionManager)
+            if onboardingCompleted {
+                MainNavigationView()
+                    .environmentObject(healthManager)
+                    .environmentObject(motionManager)
+            } else {
+                OnboardingView()
+                    .environmentObject(healthManager)
+                    .environmentObject(motionManager)
+            }
         }
     }
 }
